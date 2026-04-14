@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkTracker</title>
+    <style>
+        :root {
+            --base-font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.5);
+            --break-color: #fca5a5;
+            --success: #34d399;
+            --overtime: #c084fc;
+            --glass-bg: rgba(30, 41, 59, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--base-font);
+        }
+
+        /* Animated Gradient Background */
+        body {
+            background: linear-gradient(-45deg, #0f172a, #1e1b4b, #020617, #172554);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Glass Container */
+        .container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 28px;
+            box-shadow: var(--glass-shadow);
+            width: 100%;
+            max-width: 580px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-align: center;
+            color: var(--text-main);
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        /* Setup Section */
+        .setup-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .setup-box {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .setup-box label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        input[type="time"], input[type="number"].inline-input {
+            background: transparent;
+            color: var(--text-main);
+            border: none;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            padding: 5px 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="time"]:focus, input[type="number"].inline-input:focus {
+            border-bottom-color: var(--accent);
+        }
+
+        /* Predictor Display */
+        .predictor-box {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+            border-radius: 20px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .predictor-label {
+            color: var(--text-muted);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .sign-off-time {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--accent);
+            text-shadow: 0 0 30px var(--accent-glow);
+            letter-spacing: -2px;
+            line-height: 1;
+            transition: all 0.4s ease;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.15);
+            padding: 20px 10px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        .stat-title {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .text-break { color: var(--break-color); }
+        .text-work { color: var(--text-main); }
+        .text-overtime { color: var(--overtime); }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        button.main-btn {
+            border: none;
+            padding: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #fff;
+            flex-grow: 1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #actionBtn {
+            background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        #actionBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        #actionBtn.on-break {
+            background: linear-gradient(135deg, #f87171, #ef4444);
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3);
+        }
+
+        #actionBtn.on-break:hover {
+            box-shadow: 0 15px 25px rgba(239, 68, 68, 0.4);
+        }
+
+        #resetBtn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-muted);
+            flex-grow: 0;
+            padding: 20px 30px;
+        }
+
+        #resetBtn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        /* Manual Entry Panel */
+        .manual-panel {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .manual-panel-title {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .manual-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .manual-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            width: 140px;
+            font-weight: 500;
+        }
+
+        .time-input-group {
+            display: flex;
+            gap: 8px;
+            flex-grow: 1;
+        }
+
+        .manual-row input {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-main);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 10px;
+            outline: none;
+            font-size: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .manual-row input:focus {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--accent);
+        }
+
+        .manual-row input::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+
+        .manual-row button {
+            padding: 10px 18px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background-color: transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-break {
+            border: 1px solid var(--break-color);
+            color: var(--break-color);
+        }
+
+        .btn-break:hover {
+            background-color: var(--break-color);
+            color: #000;
+        }
+
+        .btn-work {
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-work:hover {
+            background-color: var(--accent);
+            color: #000;
+        }
+        
+        /* Hide arrows on number inputs */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+
+        /* Footer Credit */
+        .footer-credit {
+            margin-top: 30px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .footer-credit span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>WorkTracker</h1>
+
+        <div class="setup-grid">
+            <div class="setup-box">
+                <label for="startTime">Shift Commenced At</label>
+                <input type="time" id="startTime" onchange="saveDataAndRender()">
+            </div>
+            <div class="setup-box">
+                <label for="plannedOt">Planned OT (Hours)</label>
+                <input type="number" id="plannedOt" class="inline-input" value="0" min="0" step="0.5" onchange="saveDataAndRender()">
+            </div>
+        </div>
+
+        <div class="predictor-box">
+            <div class="predictor-label" id="signOffLabel">Projected End of Shift</div>
+            <div class="sign-off-time" id="signOffDisplay">--:--</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-title">Standard Hours</div>
+                <div class="stat-value text-work" id="workTimeDisplay">00:00:00</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Break Duration</div>
+                <div class="stat-value text-break" id="breakTimeDisplay">00:00:00</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Overtime Accrued</div>
+                <div class="stat-value text-overtime" id="overtimeDisplay">00:00:00</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="actionBtn" class="main-btn" onclick="toggleState()">Begin Shift</button>
+            <button id="resetBtn" class="main-btn" onclick="resetApp()">Reset</button>
+        </div>
+
+        <div class="manual-panel">
+            <div class="manual-panel-title">Manual Ledger Adjustments</div>
+            
+            <div class="manual-row">
+                <span class="manual-label">Log Missed Break:</span>
+                <div class="time-input-group">
+                    <input type="number" id="manualBreakHr" placeholder="Hrs" min="0" max="24">
+                    <input type="number" id="manualBreakMin" placeholder="Mins" min="0" max="59">
+                </div>
+                <button class="btn-break" onclick="addManualTime('break')">Apply</button>
+            </div>
+            
+            <div class="manual-row">
+                <span class="manual-label">Log Offline Work:</span>
+                <div class="time-input-group">
+                    <input type="number" id="manualWorkHr" placeholder="Hrs" min="0" max="24">
+                    <input type="number" id="manualWorkMin" placeholder="Mins" min="0" max="59">
+                </div>
+                <button class="btn-work" onclick="addManualTime('work')">Apply</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-credit">
+        App made by <span>JeremiaKusuma</span>
+    </div>
+
+    <script>
+        const BASE_GOAL_HOURS = 8;
+        const BASE_TARGET_SECONDS = BASE_GOAL_HOURS * 3600;
+        
+        let accumulatedWork = 0;
+        let accumulatedBreak = 0;
+        let sessionStart = 0;
+        let currentState = 'idle'; // 'idle', 'working', 'break', 'done'
+        let activeInterval = null;
+
+        const startTimeInput = document.getElementById('startTime');
+        const plannedOtInput = document.getElementById('plannedOt');
+        const signOffDisplay = document.getElementById('signOffDisplay');
+        const signOffLabel = document.getElementById('signOffLabel');
+        const workTimeDisplay = document.getElementById('workTimeDisplay');
+        const breakTimeDisplay = document.getElementById('breakTimeDisplay');
+        const overtimeDisplay = document.getElementById('overtimeDisplay');
+        const actionBtn = document.getElementById('actionBtn');
+
+        function formatDuration(totalSecs) {
+            const h = Math.floor(totalSecs / 3600).toString().padStart(2, '0');
+            const m = Math.floor((totalSecs % 3600) / 60).toString().padStart(2, '0');
+            const s = (totalSecs % 60).toString().padStart(2, '0');
+            return `${h}:${m}:${s}`;
+        }
+
+        function getCurrentTotals() {
+            let work = accumulatedWork;
+            let brk = accumulatedBreak;
+            const now = Date.now();
+            
+            if (currentState === 'working') {
+                work += Math.floor((now - sessionStart) / 1000);
+            } else if (currentState === 'break') {
+                brk += Math.floor((now - sessionStart) / 1000);
+            }
+            return { work, brk };
+        }
+
+        function calculateSignOff(currentBreakSeconds, plannedOtHours) {
+            if (!startTimeInput.value) return;
+
+            const [startHour, startMin] = startTimeInput.value.split(':').map(Number);
+            const totalGoalHours = BASE_GOAL_HOURS + plannedOtHours;
+            const totalMinutesNeeded = (totalGoalHours * 60) + Math.floor(currentBreakSeconds / 60);
+            
+            let finalHour = startHour + Math.floor(totalMinutesNeeded / 60);
+            let finalMin = startMin + (totalMinutesNeeded % 60);
+
+            if (finalMin >= 60) {
+                finalHour += 1;
+                finalMin -= 60;
+            }
+
+            const ampm = finalHour >= 12 && finalHour < 24 ? 'PM' : 'AM';
+            const displayHour = finalHour % 12 || 12;
+            const displayMin = finalMin.toString().padStart(2, '0');
+
+            return `${displayHour}:${displayMin} ${ampm}`;
+        }
+
+        function updateDisplays() {
+            const totals = getCurrentTotals();
+            const plannedOtHours = parseFloat(plannedOtInput.value) || 0;
+            const dynamicTargetSeconds = (BASE_GOAL_HOURS + plannedOtHours) * 3600;
+            
+            // Calculate Standard vs Accrued Overtime
+            let standardSeconds = totals.work;
+            let accruedOvertimeSeconds = 0;
+            
+            // Standard hours caps at 8. Anything past 8 is tracked in overtime accrued.
+            if (totals.work > BASE_TARGET_SECONDS) {
+                standardSeconds = BASE_TARGET_SECONDS;
+                accruedOvertimeSeconds = totals.work - BASE_TARGET_SECONDS;
+            }
+
+            workTimeDisplay.textContent = formatDuration(standardSeconds);
+            overtimeDisplay.textContent = formatDuration(accruedOvertimeSeconds);
+            breakTimeDisplay.textContent = formatDuration(totals.brk);
+
+            // Handle Predictor Display based on reaching the total daily goal (8 + planned OT)
+            if (totals.work >= dynamicTargetSeconds && currentState === 'working') {
+                signOffLabel.textContent = "Shift Status";
+                signOffDisplay.textContent = "UNPLANNED OT";
+                signOffDisplay.style.color = "var(--overtime)";
+                signOffDisplay.style.textShadow = "0 0 30px rgba(192, 132, 252, 0.5)";
+            } else {
+                signOffLabel.textContent = "Projected End of Shift";
+                signOffDisplay.textContent = calculateSignOff(totals.brk, plannedOtHours);
+                signOffDisplay.style.color = "var(--accent)";
+                signOffDisplay.style.textShadow = "0 0 30px var(--accent-glow)";
+            }
+            
+            saveState();
+        }
+
+        function saveDataAndRender() {
+            saveState();
+            updateDisplays();
+        }
+
+        function getTimestampFromInput() {
+            const [hours, minutes] = startTimeInput.value.split(':').map(Number);
+            const d = new Date();
+            d.setHours(hours, minutes, 0, 0);
+            return d.getTime();
+        }
+
+        function toggleState() {
+            if (currentState === 'done') return;
+            const now = Date.now();
+
+            if (currentState === 'idle') {
+                const inputTimestamp = getTimestampFromInput();
+                if (inputTimestamp < now) {
+                    accumulatedWork = Math.floor((now - inputTimestamp) / 1000);
+                }
+                
+                currentState = 'working';
+                sessionStart = now;
+                actionBtn.textContent = "Suspend Shift (Break)";
+                actionBtn.classList.remove('on-break');
+                
+                activeInterval = setInterval(updateDisplays, 1000);
+                
+            } else if (currentState === 'working') {
+                accumulatedWork += Math.floor((now - sessionStart) / 1000);
+                currentState = 'break';
+                sessionStart = now;
+                actionBtn.textContent = "Resume Shift";
+                actionBtn.classList.add('on-break');
+                
+            } else if (currentState === 'break') {
+                accumulatedBreak += Math.floor((now - sessionStart) / 1000);
+                currentState = 'working';
+                sessionStart = now;
+                actionBtn.textContent = "Suspend Shift (Break)";
+                actionBtn.classList.remove('on-break');
+            }
+            updateDisplays();
+        }
+
+        function addManualTime(type) {
+            const hrInput = document.getElementById(type === 'break' ? 'manualBreakHr' : 'manualWorkHr');
+            const minInput = document.getElementById(type === 'break' ? 'manualBreakMin' : 'manualWorkMin');
+            
+            const hrs = parseInt(hrInput.value) || 0;
+            const mins = parseInt(minInput.value) || 0;
+            const addedSeconds = (hrs * 3600) + (mins * 60);
+
+            if (addedSeconds > 0) {
+                if (type === 'break') {
+                    accumulatedBreak += addedSeconds;
+                    accumulatedWork = Math.max(0, accumulatedWork - addedSeconds);
+                } else if (type === 'work') {
+                    accumulatedWork += addedSeconds;
+                }
+                
+                hrInput.value = '';
+                minInput.value = '';
+                updateDisplays();
+            }
+        }
+
+        function resetApp() {
+            if (confirm("Permanently clear the ledger for today?")) {
+                if (activeInterval) clearInterval(activeInterval);
+                accumulatedWork = 0;
+                accumulatedBreak = 0;
+                sessionStart = 0;
+                currentState = 'idle';
+                
+                actionBtn.textContent = "Begin Shift";
+                actionBtn.classList.remove('on-break');
+                
+                const now = new Date();
+                startTimeInput.value = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+                plannedOtInput.value = "0";
+                
+                localStorage.removeItem('workTrackerData');
+                updateDisplays();
+            }
+        }
+
+        // --- LOCAL STORAGE DATA HANDLING ---
+        function saveState() {
+            const data = {
+                accumulatedWork,
+                accumulatedBreak,
+                sessionStart,
+                currentState,
+                clockInTime: startTimeInput.value,
+                plannedOt: plannedOtInput.value
+            };
+            localStorage.setItem('workTrackerData', JSON.stringify(data));
+        }
+
+        function loadState() {
+            const savedData = localStorage.getItem('workTrackerData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                accumulatedWork = data.accumulatedWork;
+                accumulatedBreak = data.accumulatedBreak;
+                sessionStart = data.sessionStart;
+                currentState = data.currentState;
+                startTimeInput.value = data.clockInTime;
+                plannedOtInput.value = data.plannedOt || "0";
+
+                if (currentState === 'working') {
+                    actionBtn.textContent = "Suspend Shift (Break)";
+                    activeInterval = setInterval(updateDisplays, 1000);
+                } else if (currentState === 'break') {
+                    actionBtn.textContent = "Resume Shift";
+                    actionBtn.classList.add('on-break');
+                    activeInterval = setInterval(updateDisplays, 1000);
+                }
+            } else {
+                const initNow = new Date();
+                startTimeInput.value = `${initNow.getHours().toString().padStart(2, '0')}:${initNow.getMinutes().toString().padStart(2, '0')}`;
+            }
+            updateDisplays();
+        }
+
+        loadState();
+    </script>
+</body>
+</html>
