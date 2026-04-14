@@ -44,7 +44,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Layout Wrapper */
         .app-wrapper {
             display: grid;
             grid-template-columns: 1fr 380px;
@@ -55,12 +54,9 @@
         }
 
         @media (max-width: 850px) {
-            .app-wrapper {
-                grid-template-columns: 1fr;
-            }
+            .app-wrapper { grid-template-columns: 1fr; }
         }
 
-        /* Glass Containers */
         .glass-panel {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
@@ -73,20 +69,25 @@
 
         .history-panel {
             padding: 30px;
-            max-height: 800px;
-            overflow-y: auto;
+            max-height: 850px;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Custom Scrollbar for History */
-        .history-panel::-webkit-scrollbar { width: 8px; }
-        .history-panel::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); border-radius: 10px; }
-        .history-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        #historyContainer {
+            overflow-y: auto;
+            flex-grow: 1;
+            margin-bottom: 20px;
+            padding-right: 5px;
+        }
+
+        #historyContainer::-webkit-scrollbar { width: 6px; }
+        #historyContainer::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
 
         h1, h2 {
             font-size: 1.6rem;
             font-weight: 700;
             text-align: center;
-            color: var(--text-main);
             letter-spacing: 2px;
             margin-bottom: 30px;
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
@@ -94,7 +95,6 @@
 
         h2 { font-size: 1.2rem; margin-bottom: 20px; }
 
-        /* Setup Section */
         .setup-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -116,7 +116,6 @@
             font-size: 0.85rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
             font-weight: 600;
         }
 
@@ -129,29 +128,14 @@
             font-size: 1.2rem;
             font-weight: bold;
             outline: none;
-            transition: border-color 0.3s;
         }
 
-        input[type="time"]:focus, input[type="number"].inline-input:focus {
-            border-bottom-color: var(--accent);
-        }
-
-        /* Predictor Display */
         .predictor-box {
             text-align: center;
             margin-bottom: 40px;
             padding: 20px;
             background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
             border-radius: 20px;
-            border-top: 1px solid var(--glass-border);
-        }
-
-        .predictor-label {
-            color: var(--text-muted);
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
         }
 
         .sign-off-time {
@@ -163,7 +147,6 @@
             line-height: 1;
         }
 
-        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -176,33 +159,15 @@
             padding: 20px 10px;
             border-radius: 20px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .stat-title {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-
-        .stat-value {
-            font-size: 1.4rem;
-            font-weight: 700;
-            font-variant-numeric: tabular-nums;
-        }
+        .stat-title { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 10px; }
+        .stat-value { font-size: 1.4rem; font-weight: 700; font-variant-numeric: tabular-nums; }
 
         .text-break { color: var(--break-color); }
-        .text-work { color: var(--text-main); }
         .text-overtime { color: var(--overtime); }
 
-        /* Controls */
-        .controls {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
+        .controls { display: flex; gap: 15px; margin-bottom: 30px; }
 
         button.main-btn {
             border: none;
@@ -211,24 +176,15 @@
             font-weight: 600;
             border-radius: 16px;
             cursor: pointer;
-            transition: all 0.3s ease;
             color: #fff;
             flex-grow: 1;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         #actionBtn { background: linear-gradient(135deg, #0ea5e9, #3b82f6); }
         #actionBtn.on-break { background: linear-gradient(135deg, #f87171, #ef4444); }
-        #resetBtn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: var(--text-muted);
-            flex-grow: 0;
-            padding: 20px 30px;
-        }
+        #resetBtn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-muted); flex-grow: 0; padding: 20px 30px; }
 
-        /* Manual Entry Panel */
         .manual-panel {
             background: rgba(0, 0, 0, 0.2);
             padding: 25px;
@@ -239,132 +195,81 @@
             gap: 15px;
         }
         
-        .manual-panel-title {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .manual-row {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .manual-label {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            width: 140px;
-            font-weight: 500;
-        }
-
-        .time-input-group {
-            display: flex;
-            gap: 8px;
-            flex-grow: 1;
-        }
-
-        .manual-row input {
-            width: 100%;
-            background: rgba(255,255,255,0.05);
-            color: var(--text-main);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 10px;
-            border-radius: 10px;
-            outline: none;
-            text-align: center;
-        }
-
-        .manual-row button {
-            padding: 10px 18px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            background-color: transparent;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
+        .manual-row { display: flex; gap: 12px; align-items: center; }
+        .manual-label { font-size: 0.9rem; color: var(--text-muted); width: 140px; }
+        .time-input-group { display: flex; gap: 8px; flex-grow: 1; }
+        .manual-row input { width: 100%; background: rgba(255,255,255,0.05); color: var(--text-main); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; outline: none; text-align: center; }
+        .manual-row button { padding: 10px 18px; font-size: 0.9rem; font-weight: 600; background-color: transparent; border-radius: 10px; cursor: pointer; }
         .btn-break { border: 1px solid var(--break-color); color: var(--break-color); }
         .btn-work { border: 1px solid var(--accent); color: var(--accent); }
 
-        /* History Ledger Styles */
-        .history-item {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 12px;
-            margin-bottom: 15px;
-            overflow: hidden;
-            transition: all 0.2s ease;
-        }
-
-        .history-header {
-            padding: 15px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255,255,255,0.02);
-        }
-
-        .history-header:hover { background: rgba(255,255,255,0.05); }
-
+        .history-item { background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 15px; overflow: hidden; }
+        .history-header { padding: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
         .history-date { font-weight: 600; font-size: 0.95rem; }
-        .history-time { color: var(--text-muted); font-size: 0.85rem; }
-
-        .history-body {
-            padding: 15px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            display: none;
-        }
-
+        .history-body { padding: 15px; border-top: 1px solid rgba(255,255,255,0.05); display: none; }
         .history-item.active .history-body { display: block; }
+        .history-notes { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: var(--text-main); padding: 10px; border-radius: 8px; min-height: 60px; font-size: 0.9rem; outline: none; }
 
-        .history-stats {
+        .data-mgmt {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 0.85rem;
+            gap: 10px;
         }
-
-        .history-notes {
-            width: 100%;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: var(--text-main);
-            padding: 10px;
-            border-radius: 8px;
-            resize: vertical;
-            min-height: 60px;
-            font-size: 0.9rem;
-            outline: none;
+        .btn-data {
+            flex-grow: 1; padding: 10px; font-size: 0.8rem; font-weight: 600; border-radius: 8px;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-muted); cursor: pointer; text-transform: uppercase;
         }
+        .btn-data:hover { background: rgba(255,255,255,0.1); color: white; }
 
-        .history-notes:focus { border-color: var(--accent); }
-
-        .empty-history {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 20px;
-        }
-
-        .footer-credit {
-            margin-top: 30px;
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.4);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+        .footer-credit { margin-top: 30px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); text-transform: uppercase; }
         .footer-credit span { color: var(--accent); font-weight: 600; }
-
+        
         input[type=number]::-webkit-inner-spin-button, 
         input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+        /* Update Modal Styles */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px);
+            display: none; justify-content: center; align-items: center; z-index: 1000;
+        }
+        .modal-content {
+            background: var(--card-bg, #1e293b);
+            border: 1px solid var(--glass-border);
+            padding: 40px; border-radius: 24px; max-width: 500px; width: 90%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        .modal-title { font-size: 1.5rem; color: var(--text-main); margin-bottom: 15px; font-weight: bold; }
+        .modal-version { color: var(--accent); font-size: 1rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
+        .modal-body { color: var(--text-muted); text-align: left; margin-bottom: 30px; line-height: 1.6; font-size: 0.95rem; }
+        .modal-body ul { padding-left: 20px; }
+        .modal-body li { margin-bottom: 10px; }
+        .modal-btn {
+            background: var(--accent); color: #fff; border: none; padding: 12px 30px;
+            font-size: 1rem; font-weight: bold; border-radius: 12px; cursor: pointer;
+            transition: background 0.2s;
+        }
+        .modal-btn:hover { background: #0284c7; }
     </style>
 </head>
 <body>
+
+    <div class="modal-overlay" id="updateModal">
+        <div class="modal-content">
+            <div class="modal-title">WorkTracker Updated</div>
+            <div class="modal-version">Version 1.1</div>
+            <div class="modal-body">
+                <ul>
+                    <li><strong>Shift History:</strong> A new persistent panel tracks your daily work sessions and overtime.</li>
+                    <li><strong>Backup & Restore:</strong> Export your data to prevent accidental loss if your cache is cleared.</li>
+                    <li><strong>Shift Notes:</strong> Add custom context to your historical shifts.</li>
+                </ul>
+            </div>
+            <button class="modal-btn" onclick="closeModal()">Got it</button>
+        </div>
+    </div>
 
     <div class="app-wrapper">
         <div class="glass-panel">
@@ -372,11 +277,11 @@
 
             <div class="setup-grid">
                 <div class="setup-box">
-                    <label for="startTime">Clock-In Time</label>
+                    <label>Clock-In Time</label>
                     <input type="time" id="startTime" onchange="saveDataAndRender()">
                 </div>
                 <div class="setup-box">
-                    <label for="plannedOt">Planned OT (Hours)</label>
+                    <label>Planned OT (Hours)</label>
                     <input type="number" id="plannedOt" class="inline-input" value="0" min="0" step="0.5" onchange="saveDataAndRender()">
                 </div>
             </div>
@@ -389,14 +294,14 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-title">Active Work</div>
-                    <div class="stat-value text-work" id="workTimeDisplay">00:00:00</div>
+                    <div class="stat-value" id="workTimeDisplay">00:00:00</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-title">Break Duration</div>
+                    <div class="stat-title">Break Time</div>
                     <div class="stat-value text-break" id="breakTimeDisplay">00:00:00</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-title">Overtime Accrued</div>
+                    <div class="stat-title">Overtime</div>
                     <div class="stat-value text-overtime" id="overtimeDisplay">00:00:00</div>
                 </div>
             </div>
@@ -407,8 +312,6 @@
             </div>
 
             <div class="manual-panel">
-                <div class="manual-panel-title">Manual Time Adjustment</div>
-                
                 <div class="manual-row">
                     <span class="manual-label">Log Missed Break:</span>
                     <div class="time-input-group">
@@ -417,7 +320,6 @@
                     </div>
                     <button class="btn-break" onclick="addManualTime('break')">Apply</button>
                 </div>
-                
                 <div class="manual-row">
                     <span class="manual-label">Log Offline Work:</span>
                     <div class="time-input-group">
@@ -431,25 +333,23 @@
 
         <div class="glass-panel history-panel">
             <h2>Shift History</h2>
-            <div id="historyContainer">
-                </div>
+            <div id="historyContainer"></div>
+
+            <div class="data-mgmt">
+                <button class="btn-data" onclick="exportData()">Backup Data</button>
+                <button class="btn-data" onclick="document.getElementById('fileInput').click()">Restore Data</button>
+                <input type="file" id="fileInput" style="display:none" onchange="importData(event)" accept=".json">
+            </div>
         </div>
     </div>
 
-    <div class="footer-credit">
-        App made by <span>JeremiaKusuma</span>
-    </div>
+    <div class="footer-credit">App made by <span>JeremiaKusuma</span></div>
 
     <script>
-        const BASE_GOAL_HOURS = 8;
-        const BASE_TARGET_SECONDS = BASE_GOAL_HOURS * 3600;
-        
-        let accumulatedWork = 0;
-        let accumulatedBreak = 0;
-        let sessionStart = 0;
-        let currentState = 'idle'; 
+        const APP_VERSION = "1.1";
+        const BASE_GOAL = 8 * 3600;
+        let accumulatedWork = 0, accumulatedBreak = 0, sessionStart = 0, currentState = 'idle', shiftHistory = [];
         let activeInterval = null;
-        let shiftHistory = [];
 
         const startTimeInput = document.getElementById('startTime');
         const plannedOtInput = document.getElementById('plannedOt');
@@ -460,81 +360,77 @@
         const overtimeDisplay = document.getElementById('overtimeDisplay');
         const actionBtn = document.getElementById('actionBtn');
         const historyContainer = document.getElementById('historyContainer');
+        const updateModal = document.getElementById('updateModal');
 
-        function formatDuration(totalSecs) {
-            const h = Math.floor(totalSecs / 3600).toString().padStart(2, '0');
-            const m = Math.floor((totalSecs % 3600) / 60).toString().padStart(2, '0');
-            const s = (totalSecs % 60).toString().padStart(2, '0');
-            return `${h}:${m}:${s}`;
+        function checkVersion() {
+            const savedVersion = localStorage.getItem('wt_app_version');
+            if (savedVersion !== APP_VERSION) {
+                updateModal.style.display = 'flex';
+                localStorage.setItem('wt_app_version', APP_VERSION);
+            }
+        }
+
+        function closeModal() {
+            updateModal.style.display = 'none';
+        }
+
+        function formatDuration(s) {
+            const h = Math.floor(s / 3600).toString().padStart(2, '0');
+            const m = Math.floor((s % 3600) / 60).toString().padStart(2, '0');
+            const sec = (s % 60).toString().padStart(2, '0');
+            return `${h}:${m}:${sec}`;
         }
 
         function getCurrentTotals() {
-            let work = accumulatedWork;
-            let brk = accumulatedBreak;
+            let w = accumulatedWork, b = accumulatedBreak;
             const now = Date.now();
-            if (currentState === 'working') work += Math.floor((now - sessionStart) / 1000);
-            else if (currentState === 'break') brk += Math.floor((now - sessionStart) / 1000);
-            return { work, brk };
-        }
-
-        function calculateSignOff(currentBreakSeconds, plannedOtHours) {
-            if (!startTimeInput.value) return;
-            const [startHour, startMin] = startTimeInput.value.split(':').map(Number);
-            const totalGoalHours = BASE_GOAL_HOURS + plannedOtHours;
-            const totalMinutesNeeded = (totalGoalHours * 60) + Math.floor(currentBreakSeconds / 60);
-            
-            let finalHour = startHour + Math.floor(totalMinutesNeeded / 60);
-            let finalMin = startMin + (totalMinutesNeeded % 60);
-            if (finalMin >= 60) { finalHour += 1; finalMin -= 60; }
-
-            const ampm = finalHour >= 12 && finalHour < 24 ? 'PM' : 'AM';
-            const displayHour = finalHour % 12 || 12;
-            const displayMin = finalMin.toString().padStart(2, '0');
-            return `${displayHour}:${displayMin} ${ampm}`;
+            if (currentState === 'working') w += Math.floor((now - sessionStart) / 1000);
+            else if (currentState === 'break') b += Math.floor((now - sessionStart) / 1000);
+            return { w, b };
         }
 
         function updateDisplays() {
-            const totals = getCurrentTotals();
-            const plannedOtHours = parseFloat(plannedOtInput.value) || 0;
-            const dynamicTargetSeconds = (BASE_GOAL_HOURS + plannedOtHours) * 3600;
-            
-            let standardSeconds = totals.work;
-            let accruedOvertimeSeconds = 0;
-            
-            if (totals.work > BASE_TARGET_SECONDS) {
-                standardSeconds = BASE_TARGET_SECONDS;
-                accruedOvertimeSeconds = totals.work - BASE_TARGET_SECONDS;
-            }
+            const { w, b } = getCurrentTotals();
+            const plannedOtSec = (parseFloat(plannedOtInput.value) || 0) * 3600;
+            const totalGoalSec = BASE_GOAL + plannedOtSec;
 
-            workTimeDisplay.textContent = formatDuration(standardSeconds);
-            overtimeDisplay.textContent = formatDuration(accruedOvertimeSeconds);
-            breakTimeDisplay.textContent = formatDuration(totals.brk);
+            let std = w > BASE_GOAL ? BASE_GOAL : w;
+            let ot = w > BASE_GOAL ? w - BASE_GOAL : 0;
 
-            if (totals.work >= dynamicTargetSeconds && currentState === 'working') {
+            workTimeDisplay.textContent = formatDuration(std);
+            overtimeDisplay.textContent = formatDuration(ot);
+            breakTimeDisplay.textContent = formatDuration(b);
+
+            if (w >= totalGoalSec && currentState === 'working') {
                 signOffLabel.textContent = "Shift Status";
                 signOffDisplay.textContent = "UNPLANNED OT";
                 signOffDisplay.style.color = "var(--overtime)";
             } else {
                 signOffLabel.textContent = "Projected End of Shift";
-                signOffDisplay.textContent = calculateSignOff(totals.brk, plannedOtHours);
+                signOffDisplay.textContent = calculateSignOff(b, parseFloat(plannedOtInput.value) || 0);
                 signOffDisplay.style.color = "var(--accent)";
             }
             saveState();
         }
 
-        function saveDataAndRender() { saveState(); updateDisplays(); }
+        function calculateSignOff(breakSec, otHr) {
+            if (!startTimeInput.value) return "--:--";
+            const [h, m] = startTimeInput.value.split(':').map(Number);
+            const totalMins = (8 + otHr) * 60 + Math.floor(breakSec / 60);
+            let finalH = h + Math.floor(totalMins / 60), finalM = m + (totalMins % 60);
+            if (finalM >= 60) { finalH++; finalM -= 60; }
+            const ampm = finalH >= 12 && finalH < 24 ? 'PM' : 'AM';
+            return `${finalH % 12 || 12}:${finalM.toString().padStart(2, '0')} ${ampm}`;
+        }
 
         function toggleState() {
-            if (currentState === 'done') return;
             const now = Date.now();
-
             if (currentState === 'idle') {
-                const [hours, minutes] = startTimeInput.value.split(':').map(Number);
-                const d = new Date(); d.setHours(hours, minutes, 0, 0);
+                const [h, m] = startTimeInput.value.split(':').map(Number);
+                const d = new Date(); d.setHours(h, m, 0, 0);
                 if (d.getTime() < now) accumulatedWork = Math.floor((now - d.getTime()) / 1000);
-                
                 currentState = 'working'; sessionStart = now;
-                actionBtn.textContent = "Take Break"; actionBtn.classList.remove('on-break');
+                actionBtn.textContent = "Take Break";
                 activeInterval = setInterval(updateDisplays, 1000);
             } else if (currentState === 'working') {
                 accumulatedWork += Math.floor((now - sessionStart) / 1000);
@@ -549,148 +445,89 @@
         }
 
         function addManualTime(type) {
-            const hrInput = document.getElementById(type === 'break' ? 'manualBreakHr' : 'manualWorkHr');
-            const minInput = document.getElementById(type === 'break' ? 'manualBreakMin' : 'manualWorkMin');
-            const addedSeconds = ((parseInt(hrInput.value) || 0) * 3600) + ((parseInt(minInput.value) || 0) * 60);
-
-            if (addedSeconds > 0) {
-                if (type === 'break') {
-                    accumulatedBreak += addedSeconds;
-                    accumulatedWork = Math.max(0, accumulatedWork - addedSeconds);
-                } else if (type === 'work') { accumulatedWork += addedSeconds; }
-                hrInput.value = ''; minInput.value = ''; updateDisplays();
+            const hr = document.getElementById(type === 'break' ? 'manualBreakHr' : 'manualWorkHr');
+            const min = document.getElementById(type === 'break' ? 'manualBreakMin' : 'manualWorkMin');
+            const s = ((parseInt(hr.value) || 0) * 3600) + ((parseInt(min.value) || 0) * 60);
+            if (s > 0) {
+                if (type === 'break') { accumulatedBreak += s; accumulatedWork = Math.max(0, accumulatedWork - s); }
+                else { accumulatedWork += s; }
+                hr.value = ''; min.value = ''; updateDisplays();
             }
         }
 
-        function finishAndLogDay() {
+        function finishAndLog() {
             if (currentState === 'idle') return;
-            if (activeInterval) clearInterval(activeInterval);
             const now = Date.now();
             if (currentState === 'working') accumulatedWork += Math.floor((now - sessionStart) / 1000);
             else if (currentState === 'break') accumulatedBreak += Math.floor((now - sessionStart) / 1000);
             
-            currentState = 'done';
-            actionBtn.textContent = "Finish Day";
-            
-            const dateObj = new Date();
-            const dateString = dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
-            
-            const [startH, startM] = startTimeInput.value.split(':');
-            const startAmPm = startH >= 12 ? 'PM' : 'AM';
-            const formattedStart = `${startH % 12 || 12}:${startM} ${startAmPm}`;
-            
-            const endH = dateObj.getHours();
-            const endM = dateObj.getMinutes().toString().padStart(2, '0');
-            const endAmPm = endH >= 12 ? 'PM' : 'AM';
-            const formattedEnd = `${endH % 12 || 12}:${endM} ${endAmPm}`;
-
-            const standardSecs = accumulatedWork > BASE_TARGET_SECONDS ? BASE_TARGET_SECONDS : accumulatedWork;
-            const otSecs = accumulatedWork > BASE_TARGET_SECONDS ? accumulatedWork - BASE_TARGET_SECONDS : 0;
-
-            const shiftData = {
-                id: Date.now(),
-                date: dateString,
-                timeRange: `${formattedStart} - ${formattedEnd}`,
-                work: formatDuration(standardSecs),
-                ot: formatDuration(otSecs),
-                break: formatDuration(accumulatedBreak),
-                notes: ""
+            const dateStr = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+            const shift = {
+                id: Date.now(), date: dateStr,
+                work: formatDuration(accumulatedWork > BASE_GOAL ? BASE_GOAL : accumulatedWork),
+                ot: formatDuration(accumulatedWork > BASE_GOAL ? accumulatedWork - BASE_GOAL : 0),
+                break: formatDuration(accumulatedBreak), notes: ""
             };
-
-            const existingIndex = shiftHistory.findIndex(s => s.date === dateString);
-            if(existingIndex >= 0) shiftHistory[existingIndex] = shiftData;
-            else shiftHistory.unshift(shiftData); 
-
-            saveState();
-            renderHistory();
+            const idx = shiftHistory.findIndex(s => s.date === dateStr);
+            if(idx >= 0) shiftHistory[idx] = shift; else shiftHistory.unshift(shift);
+            saveState(); renderHistory();
         }
 
         function resetApp() {
-            finishAndLogDay();
-            
-            if (confirm("Permanently clear the active tracker for a new shift? (Your data has been saved to the History)")) {
+            finishAndLog();
+            if (confirm("Reset active tracker for a new shift? (History is saved)")) {
+                clearInterval(activeInterval);
                 accumulatedWork = 0; accumulatedBreak = 0; sessionStart = 0; currentState = 'idle';
                 actionBtn.textContent = "Start Work"; actionBtn.classList.remove('on-break');
-                
-                const now = new Date();
-                startTimeInput.value = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
-                plannedOtInput.value = "0";
-                
-                saveState(); updateDisplays();
+                const n = new Date(); startTimeInput.value = `${n.getHours().toString().padStart(2, '0')}:${n.getMinutes().toString().padStart(2, '0')}`;
+                plannedOtInput.value = "0"; saveState(); updateDisplays();
             }
         }
 
-        // --- HISTORY LEDGER FUNCTIONS ---
         function renderHistory() {
-            historyContainer.innerHTML = '';
-            if (shiftHistory.length === 0) {
-                historyContainer.innerHTML = '<div class="empty-history">No shifts recorded yet.</div>';
-                return;
-            }
-
-            shiftHistory.forEach((shift, index) => {
-                const item = document.createElement('div');
-                item.className = 'history-item';
-                item.innerHTML = `
-                    <div class="history-header" onclick="this.parentElement.classList.toggle('active')">
-                        <span class="history-date">${shift.date}</span>
-                        <span class="history-time">${shift.timeRange}</span>
-                    </div>
-                    <div class="history-body">
-                        <div class="history-stats">
-                            <span style="color: var(--text-main)">Work: ${shift.work}</span>
-                            <span style="color: var(--overtime)">OT: ${shift.ot}</span>
-                            <span style="color: var(--break-color)">Break: ${shift.break}</span>
-                        </div>
-                        <textarea class="history-notes" placeholder="Add shift notes (e.g., Client rigging, grading papers...)" onchange="updateNote(${index}, this.value)">${shift.notes}</textarea>
-                    </div>
-                `;
-                historyContainer.appendChild(item);
+            historyContainer.innerHTML = shiftHistory.length ? '' : '<div class="empty-history">No history yet.</div>';
+            shiftHistory.forEach((s, i) => {
+                const div = document.createElement('div');
+                div.className = 'history-item';
+                div.innerHTML = `<div class="history-header" onclick="this.parentElement.classList.toggle('active')"><span class="history-date">${s.date}</span></div>
+                    <div class="history-body"><div class="history-stats"><span>Work: ${s.work}</span><span>OT: ${s.ot}</span><span>Break: ${s.break}</span></div>
+                    <textarea class="history-notes" onchange="shiftHistory[${i}].notes=this.value;saveState()">${s.notes}</textarea></div>`;
+                historyContainer.appendChild(div);
             });
         }
 
-        function updateNote(index, text) {
-            shiftHistory[index].notes = text;
-            saveState();
+        function exportData() {
+            const blob = new Blob([localStorage.getItem('workTrackerData')], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = `WorkTracker_Backup_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
         }
 
-        // --- LOCAL STORAGE DATA HANDLING ---
+        function importData(e) {
+            const reader = new FileReader();
+            reader.onload = (ev) => { localStorage.setItem('workTrackerData', ev.target.result); location.reload(); };
+            reader.readAsText(e.target.files[0]);
+        }
+
         function saveState() {
-            const data = {
-                accumulatedWork, accumulatedBreak, sessionStart, currentState,
-                clockInTime: startTimeInput.value, plannedOt: plannedOtInput.value,
-                history: shiftHistory
-            };
-            localStorage.setItem('workTrackerData', JSON.stringify(data));
+            localStorage.setItem('workTrackerData', JSON.stringify({ accumulatedWork, accumulatedBreak, sessionStart, currentState, clockInTime: startTimeInput.value, plannedOt: plannedOtInput.value, history: shiftHistory }));
         }
 
         function loadState() {
-            const savedData = localStorage.getItem('workTrackerData');
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                accumulatedWork = data.accumulatedWork || 0;
-                accumulatedBreak = data.accumulatedBreak || 0;
-                sessionStart = data.sessionStart || 0;
-                currentState = data.currentState || 'idle';
-                startTimeInput.value = data.clockInTime;
-                plannedOtInput.value = data.plannedOt || "0";
-                shiftHistory = data.history || [];
-
-                if (currentState === 'working') {
-                    actionBtn.textContent = "Take Break";
+            const d = JSON.parse(localStorage.getItem('workTrackerData'));
+            if (d) {
+                accumulatedWork = d.accumulatedWork; accumulatedBreak = d.accumulatedBreak; sessionStart = d.sessionStart; currentState = d.currentState;
+                startTimeInput.value = d.clockInTime; plannedOtInput.value = d.plannedOt; shiftHistory = d.history || [];
+                if (currentState !== 'idle') {
+                    actionBtn.textContent = currentState === 'working' ? "Take Break" : "Resume Work";
+                    if (currentState === 'break') actionBtn.classList.add('on-break');
                     activeInterval = setInterval(updateDisplays, 1000);
-                } else if (currentState === 'break') {
-                    actionBtn.textContent = "Resume Work"; actionBtn.classList.add('on-break');
-                    activeInterval = setInterval(updateDisplays, 1000);
-                } else if (currentState === 'done') {
-                    actionBtn.textContent = "Finish Day";
                 }
             } else {
-                const initNow = new Date();
-                startTimeInput.value = `${initNow.getHours().toString().padStart(2, '0')}:${initNow.getMinutes().toString().padStart(2, '0')}`;
+                const n = new Date(); startTimeInput.value = `${n.getHours().toString().padStart(2, '0')}:${n.getMinutes().toString().padStart(2, '0')}`;
             }
-            updateDisplays();
-            renderHistory();
+            updateDisplays(); renderHistory();
+            checkVersion();
         }
 
         loadState();
