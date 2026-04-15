@@ -36,8 +36,11 @@
 
         @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-        .app-wrapper { display: flex; justify-content: center; width: 100%; max-width: 550px; position: relative; }
-        .glass-panel { background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); padding: 35px; border-radius: 24px; box-shadow: var(--glass-shadow); width: 100%; }
+        .app-wrapper { display: flex; justify-content: center; width: 100%; max-width: 550px; position: relative; z-index: 10; }
+        .glass-panel { position: relative; background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); padding: 35px; border-radius: 24px; box-shadow: var(--glass-shadow); width: 100%; }
+
+        .btn-help { position: absolute; top: 25px; right: 25px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--text-muted); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 0.9rem; transition: all 0.2s; }
+        .btn-help:hover { background: rgba(255,255,255,0.1); color: var(--text-main); }
 
         .branding-header { display: flex; flex-direction: column; align-items: center; margin-bottom: 25px; }
         .app-logo { width: 50px; height: auto; margin-bottom: 10px; border-radius: 8px; display: none; }
@@ -68,14 +71,18 @@
         .text-break { color: var(--break-color); }
         .text-overtime { color: var(--overtime); }
 
-        .controls { display: flex; gap: 10px; margin-bottom: 15px; }
-        .main-btn { border: none; padding: 16px; font-size: 0.9rem; font-weight: 600; border-radius: 12px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.2s ease; }
-        #actionBtn { flex: 2; background: linear-gradient(135deg, #0ea5e9, #3b82f6); color: #fff; box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25); }
+        /* Updated Hierarchical Controls */
+        .controls-primary { margin-bottom: 10px; width: 100%; }
+        .controls-secondary { display: flex; gap: 10px; margin-bottom: 15px; width: 100%; }
+        
+        #actionBtn { width: 100%; padding: 20px; font-size: 1.1rem; border-radius: 16px; border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.2s ease; background: linear-gradient(135deg, #0ea5e9, #3b82f6); color: #fff; box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25); }
         #actionBtn:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(59, 130, 246, 0.35); }
         #actionBtn.on-break { background: linear-gradient(135deg, #f87171, #ef4444); box-shadow: 0 8px 20px rgba(239, 68, 68, 0.25); }
-        #endWorkBtn { flex: 1.5; background: rgba(52, 211, 153, 0.15); border: 1px solid rgba(52, 211, 153, 0.3); color: var(--success); }
+        
+        #endWorkBtn { flex: 1; padding: 14px; font-size: 0.85rem; border-radius: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.2s ease; background: rgba(52, 211, 153, 0.15); border: 1px solid rgba(52, 211, 153, 0.3); color: var(--success); }
         #endWorkBtn:hover { background: rgba(52, 211, 153, 0.25); }
-        #resetBtn { flex: 1; background: rgba(255, 255, 255, 0.05); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.1); }
+        
+        #resetBtn { flex: 1; padding: 14px; font-size: 0.85rem; border-radius: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.2s ease; background: rgba(255, 255, 255, 0.05); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.1); }
         #resetBtn:hover { background: rgba(255, 255, 255, 0.1); color: white; }
 
         .toggle-manual-btn { background: none; border: none; color: var(--text-muted); font-size: 0.8rem; width: 100%; text-align: center; padding: 10px; cursor: pointer; transition: color 0.2s; text-transform: uppercase; letter-spacing: 1px; }
@@ -120,9 +127,23 @@
 
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); display: none; justify-content: center; align-items: center; z-index: 1000; }
         .modal-box { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 30px; border-radius: 16px; width: 90%; max-width: 400px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); text-align: center; }
+        
+        .modal-box.help-box { max-width: 550px; text-align: left; max-height: 85vh; overflow-y: auto; }
+        .help-box::-webkit-scrollbar { width: 6px; }
+        .help-box::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
+        .help-box h2 { color: var(--text-main); font-size: 1.3rem; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .help-box h3 { color: var(--accent); font-size: 1rem; margin-top: 25px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;}
+        .help-box p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; line-height: 1.6; }
+        .help-box ul { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; padding-left: 20px; line-height: 1.6; }
+        .help-box li { margin-bottom: 8px; }
+        
+        kbd { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-bottom: 2px solid rgba(255,255,255,0.3); border-radius: 4px; padding: 2px 6px; font-family: monospace; color: var(--accent); font-size: 0.8rem; }
+
         .modal-title { font-size: 1.2rem; color: var(--text-main); margin-bottom: 10px; font-weight: 600; }
         .modal-message { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; line-height: 1.5; }
-        .modal-actions { display: flex; gap: 15px; justify-content: center; }
+        .modal-actions { display: flex; gap: 15px; justify-content: center; margin-top: 20px;}
+        .help-box .modal-actions { justify-content: flex-end; position: sticky; bottom: 0; background: var(--glass-bg); padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); }
+        
         .modal-btn { padding: 10px 20px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; transition: all 0.2s; font-size: 0.9rem; }
         .modal-btn-cancel { background: rgba(255,255,255,0.1); color: var(--text-main); }
         .modal-btn-cancel:hover { background: rgba(255,255,255,0.2); }
@@ -134,20 +155,50 @@
         .footer-icon { width: 18px; height: 18px; border-radius: 4px; object-fit: contain; }
         
         input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-
-        /* Off-Screen Container for PDF Rendering */
-        #pdfRenderArea { position: absolute; left: -9999px; top: 0; width: 800px; background: white; color: black; padding: 40px; font-family: Arial, sans-serif; }
-        .pdf-header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 15px; }
-        .pdf-header h1 { color: #000; font-size: 24px; margin-bottom: 5px; }
-        .pdf-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px; }
-        .pdf-table th, .pdf-table td { border: 1px solid #ccc; padding: 10px; text-align: left; }
-        .pdf-table th { background: #f4f4f4; font-weight: bold; }
-        .pdf-summary { text-align: right; font-size: 16px; font-weight: bold; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-    <div id="pdfRenderArea"></div>
+    <div class="modal-overlay" id="helpModal">
+        <div class="modal-box help-box">
+            <h2>Welcome to WorkTracker</h2>
+            <p>A completely private, local-first time management tool designed for professional freelance and studio workflows.</p>
+            
+            <h3>1. The Core Loop</h3>
+            <ul>
+                <li><strong>Auto-Clock:</strong> While idle, the <strong>Clock-In Time</strong> perfectly syncs to your system clock. The moment you press Start, that time is locked in for the day.</li>
+                <li><strong>Overtime Target:</strong> WorkTracker assumes a standard 8-hour shift. If you enter hours into the <strong>Planned OT</strong> box, it will dynamically calculate and push back your "Projected End of Shift" time.</li>
+                <li><strong>Shift Completion:</strong> When your Active Work hits your target hours, the app will trigger a system notification and an audio chime. The projected end time will turn purple and alert you that you are working Unplanned OT.</li>
+            </ul>
+
+            <h3>2. Action Buttons</h3>
+            <ul>
+                <li><strong>Start Work / Take Break:</strong> This is your primary toggle. It controls the main timer and logs your time into either the Active Work or Break Time categories.</li>
+                <li><strong>End Work:</strong> Finalizes your current session, stops the timers, and permanently saves the data (Work, Break, and OT) to your Shift History ledger.</li>
+                <li><strong>Reset:</strong> A destructive action. It completely wipes the current timer back to zero <em>without</em> saving anything to your history.</li>
+            </ul>
+
+            <h3>3. Manual Adjustments</h3>
+            <p>If you forget to pause the timer when stepping away, or if you do offline work that wasn't tracked, click <strong>Adjust Time Manually</strong> at the bottom of the tracker. Entering time into the "Missed Break" box will subtract that time from your Active Work and add it to Break Time to balance the ledger.</p>
+
+            <h3>4. History & Exports</h3>
+            <ul>
+                <li><strong>The Ledger:</strong> The History tab safely stores your shifts, grouped automatically by month and year. Click on any shift to open it, view exact metrics, or type specific notes about what was accomplished that day.</li>
+                <li><strong>PDF Export:</strong> Generates a stylized, printable invoice document of your entire history, automatically calculating your total hours and overtime for each month.</li>
+                <li><strong>JSON Backup/Restore:</strong> Because this app is 100% private, your data lives strictly in your browser. Use these buttons to download a raw database file of your history so you can transfer it to a new computer or clear your browser cache safely.</li>
+            </ul>
+
+            <h3>5. Global Hotkeys</h3>
+            <ul>
+                <li><kbd>Spacebar</kbd> Rapidly toggle between Start Work, Take Break, and Resume Work.</li>
+                <li><kbd>Esc</kbd> Close popups, close this help manual, or instantly return to the Tracker tab from the History tab.</li>
+            </ul>
+
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-confirm" onclick="closeHelp()">Got it, let's work</button>
+            </div>
+        </div>
+    </div>
 
     <div class="modal-overlay" id="customModal">
         <div class="modal-box">
@@ -163,6 +214,8 @@
     <div class="app-wrapper">
         <div class="glass-panel">
             
+            <button class="btn-help" onclick="showHelp()" title="Documentation">?</button>
+
             <div class="branding-header">
                 <img src="logo.png" alt="Logo" class="app-logo" onload="this.style.display='block'" onerror="this.style.display='none'">
                 <h1>WorkTracker</h1>
@@ -205,10 +258,12 @@
                     </div>
                 </div>
 
-                <div class="controls">
-                    <button id="actionBtn" class="main-btn" onclick="toggleState()">Start Work</button>
-                    <button id="endWorkBtn" class="main-btn" onclick="endWork()">End Work</button>
-                    <button id="resetBtn" class="main-btn" onclick="pureReset()">Reset</button>
+                <div class="controls-primary">
+                    <button id="actionBtn" onclick="toggleState()">Start Work</button>
+                </div>
+                <div class="controls-secondary">
+                    <button id="endWorkBtn" onclick="endWork()">End Work</button>
+                    <button id="resetBtn" onclick="pureReset()">Reset</button>
                 </div>
 
                 <button class="toggle-manual-btn" onclick="document.getElementById('manualPanel').classList.toggle('open')">
@@ -271,18 +326,26 @@
         const actionBtn = document.getElementById('actionBtn');
         const historyContainer = document.getElementById('historyContainer');
         const customModal = document.getElementById('customModal');
+        const helpModal = document.getElementById('helpModal');
 
-        // Setup Global Hotkeys
+        function showHelp() { helpModal.style.display = 'flex'; }
+        function closeHelp() { 
+            helpModal.style.display = 'none'; 
+            localStorage.setItem('wt_tutorial_seen', 'true');
+        }
+
         document.addEventListener('keydown', (e) => {
-            // Ignore hotkeys if user is typing in an input or textarea
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-
             if (e.code === 'Space') {
-                e.preventDefault(); // Prevent page scroll
-                toggleState();
+                e.preventDefault(); 
+                if (helpModal.style.display !== 'flex' && customModal.style.display !== 'flex') {
+                    toggleState();
+                }
             }
             if (e.code === 'Escape') {
-                if (customModal.style.display === 'flex') {
+                if (helpModal.style.display === 'flex') {
+                    closeHelp();
+                } else if (customModal.style.display === 'flex') {
                     closeModal();
                 } else if (document.getElementById('historyTab').classList.contains('active')) {
                     switchTab('tracker');
@@ -290,7 +353,6 @@
             }
         });
 
-        // Audio & Notifications
         function requestNotificationPermission() {
             if ("Notification" in window && Notification.permission === "default") {
                 Notification.requestPermission();
@@ -305,8 +367,8 @@
                 osc.connect(gain);
                 gain.connect(ctx.destination);
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5 note
-                osc.frequency.exponentialRampToValueAtTime(1046.50, ctx.currentTime + 0.1); // Slide up to C6
+                osc.frequency.setValueAtTime(523.25, ctx.currentTime); 
+                osc.frequency.exponentialRampToValueAtTime(1046.50, ctx.currentTime + 0.1); 
                 gain.gain.setValueAtTime(0.3, ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
                 osc.start(ctx.currentTime);
@@ -564,12 +626,19 @@
                 return;
             }
 
-            const renderArea = document.getElementById('pdfRenderArea');
+            // Create a detached container for guaranteed rendering
+            const renderArea = document.createElement('div');
+            renderArea.style.width = '800px';
+            renderArea.style.padding = '40px';
+            renderArea.style.background = '#ffffff';
+            renderArea.style.color = '#000000';
+            renderArea.style.fontFamily = 'Arial, sans-serif';
+
             let htmlContent = `
-                <div class="pdf-header">
-                    <h1>SirKentC Studio</h1>
-                    <p>Official Timesheet Report</p>
-                    <p>Generated: ${new Date().toLocaleDateString('en-US')}</p>
+                <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 15px;">
+                    <h1 style="color: #000; font-size: 24px; margin-bottom: 5px; margin-top: 0;">SirKentC Studio</h1>
+                    <p style="margin: 0; font-size: 14px;">Official Timesheet Report</p>
+                    <p style="margin: 5px 0 0 0; font-size: 12px; color: #555;">Generated: ${new Date().toLocaleDateString('en-US')}</p>
                 </div>
             `;
 
@@ -581,15 +650,15 @@
             });
 
             for (const [month, shifts] of Object.entries(groupedShifts)) {
-                htmlContent += `<h2>${month}</h2>`;
+                htmlContent += `<h2 style="font-size: 18px; margin-bottom: 10px; color: #000;">${month}</h2>`;
                 htmlContent += `
-                    <table class="pdf-table">
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px;">
                         <thead>
                             <tr>
-                                <th>Date</th>
-                                <th>Work Hours</th>
-                                <th>Overtime</th>
-                                <th>Notes</th>
+                                <th style="border: 1px solid #ccc; padding: 10px; text-align: left; background: #f4f4f4; font-weight: bold;">Date</th>
+                                <th style="border: 1px solid #ccc; padding: 10px; text-align: left; background: #f4f4f4; font-weight: bold;">Work Hours</th>
+                                <th style="border: 1px solid #ccc; padding: 10px; text-align: left; background: #f4f4f4; font-weight: bold;">Overtime</th>
+                                <th style="border: 1px solid #ccc; padding: 10px; text-align: left; background: #f4f4f4; font-weight: bold;">Notes</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -603,10 +672,10 @@
                     monthTotalOT += durationToHours(s.ot);
                     htmlContent += `
                         <tr>
-                            <td>${s.date}</td>
-                            <td>${s.work}</td>
-                            <td>${s.ot}</td>
-                            <td>${s.notes || '-'}</td>
+                            <td style="border: 1px solid #ccc; padding: 10px;">${s.date}</td>
+                            <td style="border: 1px solid #ccc; padding: 10px;">${s.work}</td>
+                            <td style="border: 1px solid #ccc; padding: 10px;">${s.ot}</td>
+                            <td style="border: 1px solid #ccc; padding: 10px;">${s.notes || '-'}</td>
                         </tr>
                     `;
                 });
@@ -614,7 +683,7 @@
                 htmlContent += `
                         </tbody>
                     </table>
-                    <div class="pdf-summary">
+                    <div style="text-align: right; font-size: 14px; font-weight: bold; margin-top: 10px;">
                         Total Standard Work: ${monthTotalWork.toFixed(2)} Hrs<br>
                         Total Overtime: ${monthTotalOT.toFixed(2)} Hrs
                     </div>
@@ -624,7 +693,6 @@
 
             renderArea.innerHTML = htmlContent;
 
-            // Generate PDF using html2pdf
             const opt = {
                 margin:       0.5,
                 filename:     `Timesheet_SirKentC_${new Date().toISOString().slice(0,10)}.pdf`,
@@ -633,9 +701,7 @@
                 jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
 
-            html2pdf().set(opt).from(renderArea).save().then(() => {
-                renderArea.innerHTML = ''; // Clean up after generation
-            });
+            html2pdf().set(opt).from(renderArea).save();
         }
 
         function exportData() {
@@ -676,6 +742,11 @@
                     activeInterval = setInterval(updateDisplays, 1000);
                 }
             } 
+
+            if (!localStorage.getItem('wt_tutorial_seen')) {
+                showHelp();
+            }
+            
             manageLiveClock();
             updateDisplays(); 
             renderHistory(); 
