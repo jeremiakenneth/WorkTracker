@@ -72,11 +72,11 @@
         }
         
         .app-logo {
-            width: 50px; /* Adjust size as needed */
+            width: 50px;
             height: auto;
             margin-bottom: 10px;
-            border-radius: 8px; /* Optional if logo isn't transparent */
-            display: none; /* Hidden until image loads */
+            border-radius: 8px;
+            display: none;
         }
 
         h1 {
@@ -103,7 +103,7 @@
             border: none;
             color: var(--text-muted);
             padding: 10px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             border-radius: 8px;
             cursor: pointer;
@@ -152,16 +152,21 @@
         .text-overtime { color: var(--overtime); }
 
         /* Controls */
-        .controls { display: flex; gap: 15px; margin-bottom: 15px; }
-        button.main-btn { border: none; padding: 18px; font-size: 1rem; font-weight: 600; border-radius: 14px; cursor: pointer; color: #fff; flex-grow: 1; text-transform: uppercase; letter-spacing: 1px; transition: all 0.2s ease; }
-        #actionBtn { background: linear-gradient(135deg, #0ea5e9, #3b82f6); box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25); }
+        .controls { display: flex; gap: 10px; margin-bottom: 15px; }
+        .main-btn { border: none; padding: 16px; font-size: 0.9rem; font-weight: 600; border-radius: 12px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.2s ease; }
+        
+        #actionBtn { flex: 2; background: linear-gradient(135deg, #0ea5e9, #3b82f6); color: #fff; box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25); }
         #actionBtn:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(59, 130, 246, 0.35); }
         #actionBtn.on-break { background: linear-gradient(135deg, #f87171, #ef4444); box-shadow: 0 8px 20px rgba(239, 68, 68, 0.25); }
-        #resetBtn { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); flex-grow: 0; padding: 18px 25px; }
+        
+        #endWorkBtn { flex: 1.5; background: rgba(52, 211, 153, 0.15); border: 1px solid rgba(52, 211, 153, 0.3); color: var(--success); }
+        #endWorkBtn:hover { background: rgba(52, 211, 153, 0.25); }
+
+        #resetBtn { flex: 1; background: rgba(255, 255, 255, 0.05); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.1); }
         #resetBtn:hover { background: rgba(255, 255, 255, 0.1); color: white; }
 
         /* Manual Panel */
-        .toggle-manual-btn { background: none; border: none; color: var(--text-muted); font-size: 0.85rem; width: 100%; text-align: center; padding: 10px; cursor: pointer; transition: color 0.2s; }
+        .toggle-manual-btn { background: none; border: none; color: var(--text-muted); font-size: 0.8rem; width: 100%; text-align: center; padding: 10px; cursor: pointer; transition: color 0.2s; text-transform: uppercase; letter-spacing: 1px; }
         .toggle-manual-btn:hover { color: var(--text-main); }
         .manual-panel { background: rgba(0, 0, 0, 0.2); padding: 20px; border-radius: 16px; border: 1px solid var(--glass-border); display: none; flex-direction: column; gap: 15px; margin-top: 10px; }
         .manual-panel.open { display: flex; }
@@ -178,6 +183,9 @@
         #historyContainer::-webkit-scrollbar { width: 5px; }
         #historyContainer::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
         
+        .history-month-header { font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px 0; padding-bottom: 5px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .history-month-header:first-child { margin-top: 0; }
+
         .history-item { background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
         .history-header { padding: 12px 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s;}
         .history-header:hover { background: rgba(255,255,255,0.05); }
@@ -186,15 +194,21 @@
         .history-item.active .history-body { display: block; }
         .history-stats { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; font-size: 0.75rem; }
         .history-badge { background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 6px; }
-        .history-notes { width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); color: var(--text-main); padding: 10px; border-radius: 8px; min-height: 60px; font-size: 0.85rem; outline: none; transition: border-color 0.2s;}
+        
+        .history-notes { width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); color: var(--text-main); padding: 10px; border-radius: 8px; min-height: 60px; font-size: 0.85rem; outline: none; transition: border-color 0.2s; margin-bottom: 10px;}
         .history-notes:focus { border-color: var(--accent); }
+
+        .btn-delete-history { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; width: 100%; }
+        .btn-delete-history:hover { background: rgba(239, 68, 68, 0.2); }
 
         .data-mgmt { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; display: flex; justify-content: center; gap: 20px; }
         .btn-data { background: none; border: none; color: var(--text-muted); font-size: 0.75rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: color 0.2s; }
         .btn-data:hover { color: var(--text-main); }
 
-        .footer-credit { margin-top: 30px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.3); text-transform: uppercase; letter-spacing: 1px; }
+        /* Footer & Logo */
+        .footer-credit { margin-top: 30px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.3); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .footer-credit span { color: var(--accent); font-weight: 600; }
+        .footer-icon { width: 18px; height: 18px; border-radius: 4px; object-fit: contain; }
         
         input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
     </style>
@@ -210,8 +224,8 @@
             </div>
 
             <div class="tab-nav">
-                <button class="tab-btn active" onclick="switchTab('tracker')">⏱️ Tracker</button>
-                <button class="tab-btn" onclick="switchTab('history')">📋 History</button>
+                <button class="tab-btn active" onclick="switchTab('tracker')">Tracker</button>
+                <button class="tab-btn" onclick="switchTab('history')">History</button>
             </div>
 
             <div id="trackerTab" class="tab-content active">
@@ -248,11 +262,12 @@
 
                 <div class="controls">
                     <button id="actionBtn" class="main-btn" onclick="toggleState()">Start Work</button>
-                    <button id="resetBtn" class="main-btn" onclick="resetApp()">Reset</button>
+                    <button id="endWorkBtn" class="main-btn" onclick="endWork()">End Work</button>
+                    <button id="resetBtn" class="main-btn" onclick="pureReset()">Reset</button>
                 </div>
 
                 <button class="toggle-manual-btn" onclick="document.getElementById('manualPanel').classList.toggle('open')">
-                    ⚙️ Adjust Time Manually
+                    Adjust Time Manually
                 </button>
 
                 <div class="manual-panel" id="manualPanel">
@@ -279,8 +294,8 @@
                 <div id="historyContainer"></div>
 
                 <div class="data-mgmt">
-                    <button class="btn-data" onclick="exportData()">↓ Backup JSON</button>
-                    <button class="btn-data" onclick="document.getElementById('fileInput').click()">↑ Restore JSON</button>
+                    <button class="btn-data" onclick="exportData()">Backup JSON</button>
+                    <button class="btn-data" onclick="document.getElementById('fileInput').click()">Restore JSON</button>
                     <input type="file" id="fileInput" style="display:none" onchange="importData(event)" accept=".json">
                 </div>
             </div>
@@ -288,7 +303,10 @@
         </div>
     </div>
 
-    <div class="footer-credit">App made by <span>SirKentC</span></div>
+    <div class="footer-credit">
+        APP MADE BY <span>SIRKENTC</span>
+        <img src="footer-logo.png" alt="" class="footer-icon" onerror="this.style.display='none'">
+    </div>
 
     <script>
         const BASE_GOAL = 8 * 3600;
@@ -306,11 +324,8 @@
         const historyContainer = document.getElementById('historyContainer');
 
         function switchTab(tabName) {
-            // Remove active class from buttons and contents
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
-            // Add active class to selected
             event.currentTarget.classList.add('active');
             document.getElementById(tabName + 'Tab').classList.add('active');
         }
@@ -396,55 +411,102 @@
             }
         }
 
-        function finishAndLog() {
-            if (currentState === 'idle') return;
+        function endWork() {
+            if (currentState === 'idle') {
+                alert("You have no active shift to end.");
+                return;
+            }
+            
             const now = Date.now();
             if (currentState === 'working') accumulatedWork += Math.floor((now - sessionStart) / 1000);
             else if (currentState === 'break') accumulatedBreak += Math.floor((now - sessionStart) / 1000);
             
+            const timestampId = Date.now();
             const dateStr = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+            
             const shift = {
-                id: Date.now(), date: dateStr,
+                id: timestampId,
+                date: dateStr,
                 work: formatDuration(accumulatedWork > BASE_GOAL ? BASE_GOAL : accumulatedWork),
                 ot: formatDuration(accumulatedWork > BASE_GOAL ? accumulatedWork - BASE_GOAL : 0),
-                break: formatDuration(accumulatedBreak), notes: ""
+                break: formatDuration(accumulatedBreak), 
+                notes: ""
             };
-            const idx = shiftHistory.findIndex(s => s.date === dateStr);
-            if(idx >= 0) shiftHistory[idx] = shift; else shiftHistory.unshift(shift);
-            saveState(); renderHistory();
+            
+            shiftHistory.unshift(shift);
+            
+            wipeTimerToIdle();
         }
 
-        function resetApp() {
-            finishAndLog();
-            if (confirm("Reset active tracker for a new shift? (History is saved)")) {
-                clearInterval(activeInterval);
-                accumulatedWork = 0; accumulatedBreak = 0; sessionStart = 0; currentState = 'idle';
-                actionBtn.textContent = "Start Work"; actionBtn.classList.remove('on-break');
-                const n = new Date(); startTimeInput.value = `${n.getHours().toString().padStart(2, '0')}:${n.getMinutes().toString().padStart(2, '0')}`;
-                plannedOtInput.value = "0"; saveState(); updateDisplays();
+        function pureReset() {
+            if (currentState === 'idle' && accumulatedWork === 0 && accumulatedBreak === 0) return;
+            
+            if (confirm("Wipe the current timer? This will NOT save the shift to your history.")) {
+                wipeTimerToIdle();
+            }
+        }
+
+        function wipeTimerToIdle() {
+            clearInterval(activeInterval);
+            accumulatedWork = 0; accumulatedBreak = 0; sessionStart = 0; currentState = 'idle';
+            actionBtn.textContent = "Start Work"; actionBtn.classList.remove('on-break');
+            const n = new Date(); startTimeInput.value = `${n.getHours().toString().padStart(2, '0')}:${n.getMinutes().toString().padStart(2, '0')}`;
+            plannedOtInput.value = "0"; 
+            saveState(); updateDisplays(); renderHistory();
+        }
+
+        function deleteHistoryItem(id) {
+            if(confirm("Permanently delete this shift record?")) {
+                shiftHistory = shiftHistory.filter(s => s.id !== id);
+                saveState();
+                renderHistory();
             }
         }
 
         function renderHistory() {
-            historyContainer.innerHTML = shiftHistory.length ? '' : '<div style="text-align:center;color:var(--text-muted);font-size:0.85rem;margin-top:20px;">No history yet.</div>';
-            shiftHistory.forEach((s, i) => {
-                const div = document.createElement('div');
-                div.className = 'history-item';
-                div.innerHTML = `
-                    <div class="history-header" onclick="this.parentElement.classList.toggle('active')">
-                        <span class="history-date">${s.date}</span>
-                        <span style="font-size: 0.75rem; color: var(--text-muted);">▼</span>
-                    </div>
-                    <div class="history-body">
-                        <div class="history-stats">
-                            <span class="history-badge">Work: ${s.work}</span>
-                            <span class="history-badge" style="color: var(--overtime);">OT: ${s.ot}</span>
-                            <span class="history-badge" style="color: var(--break-color);">Break: ${s.break}</span>
-                        </div>
-                        <textarea class="history-notes" placeholder="Shift notes..." onchange="shiftHistory[${i}].notes=this.value;saveState()">${s.notes}</textarea>
-                    </div>`;
-                historyContainer.appendChild(div);
+            historyContainer.innerHTML = '';
+            if (shiftHistory.length === 0) {
+                historyContainer.innerHTML = '<div style="text-align:center;color:var(--text-muted);font-size:0.85rem;margin-top:20px;">No history yet.</div>';
+                return;
+            }
+
+            // Group shifts by Month and Year
+            const groupedShifts = {};
+            shiftHistory.forEach(s => {
+                const dateObj = new Date(s.id);
+                const monthYear = dateObj.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+                if (!groupedShifts[monthYear]) groupedShifts[monthYear] = [];
+                groupedShifts[monthYear].push(s);
             });
+
+            // Render groups
+            for (const [month, shifts] of Object.entries(groupedShifts)) {
+                const monthHeader = document.createElement('div');
+                monthHeader.className = 'history-month-header';
+                monthHeader.textContent = month;
+                historyContainer.appendChild(monthHeader);
+
+                shifts.forEach(s => {
+                    const idx = shiftHistory.findIndex(sh => sh.id === s.id);
+                    const div = document.createElement('div');
+                    div.className = 'history-item';
+                    div.innerHTML = `
+                        <div class="history-header" onclick="this.parentElement.classList.toggle('active')">
+                            <span class="history-date">${s.date}</span>
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">▼</span>
+                        </div>
+                        <div class="history-body">
+                            <div class="history-stats">
+                                <span class="history-badge">Work: ${s.work}</span>
+                                <span class="history-badge" style="color: var(--overtime);">OT: ${s.ot}</span>
+                                <span class="history-badge" style="color: var(--break-color);">Break: ${s.break}</span>
+                            </div>
+                            <textarea class="history-notes" placeholder="Shift notes..." onchange="shiftHistory[${idx}].notes=this.value;saveState()">${s.notes}</textarea>
+                            <button class="btn-delete-history" onclick="deleteHistoryItem(${s.id})">Delete Entry</button>
+                        </div>`;
+                    historyContainer.appendChild(div);
+                });
+            }
         }
 
         function exportData() {
@@ -465,8 +527,8 @@
         function loadState() {
             const d = JSON.parse(localStorage.getItem('workTrackerData'));
             if (d) {
-                accumulatedWork = d.accumulatedWork; accumulatedBreak = d.accumulatedBreak; sessionStart = d.sessionStart; currentState = d.currentState;
-                startTimeInput.value = d.clockInTime; plannedOtInput.value = d.plannedOt; shiftHistory = d.history || [];
+                accumulatedWork = d.accumulatedWork || 0; accumulatedBreak = d.accumulatedBreak || 0; sessionStart = d.sessionStart || 0; currentState = d.currentState || 'idle';
+                startTimeInput.value = d.clockInTime; plannedOtInput.value = d.plannedOt || 0; shiftHistory = d.history || [];
                 if (currentState !== 'idle') {
                     actionBtn.textContent = currentState === 'working' ? "Take Break" : "Resume Work";
                     if (currentState === 'break') actionBtn.classList.add('on-break');
