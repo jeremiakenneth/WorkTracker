@@ -14,9 +14,9 @@
             --break-color: #fca5a5;
             --success: #34d399;
             --overtime: #c084fc;
-            --glass-bg: rgba(30, 41, 59, 0.6);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            --glass-bg: rgba(15, 23, 42, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --glass-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
         * {
@@ -47,7 +47,7 @@
         .app-wrapper {
             display: grid;
             grid-template-columns: 1fr 380px;
-            gap: 30px;
+            gap: 25px;
             width: 100%;
             max-width: 1000px;
             align-items: flex-start;
@@ -59,16 +59,16 @@
 
         .glass-panel {
             background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            padding: 40px;
-            border-radius: 28px;
+            padding: 35px;
+            border-radius: 24px;
             box-shadow: var(--glass-shadow);
         }
 
         .history-panel {
-            padding: 30px;
+            padding: 25px;
             max-height: 850px;
             display: flex;
             flex-direction: column;
@@ -77,76 +77,91 @@
         #historyContainer {
             overflow-y: auto;
             flex-grow: 1;
-            margin-bottom: 20px;
-            padding-right: 5px;
+            margin-bottom: 15px;
+            padding-right: 8px;
         }
 
-        #historyContainer::-webkit-scrollbar { width: 6px; }
-        #historyContainer::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        #historyContainer::-webkit-scrollbar { width: 5px; }
+        #historyContainer::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
 
         h1, h2 {
-            font-size: 1.6rem;
-            font-weight: 700;
+            font-size: 1.5rem;
+            font-weight: 600;
             text-align: center;
-            letter-spacing: 2px;
-            margin-bottom: 30px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            color: var(--text-main);
         }
 
-        h2 { font-size: 1.2rem; margin-bottom: 20px; }
+        h2 { font-size: 1.2rem; margin-bottom: 20px; color: var(--text-muted); }
 
+        /* Setup Section - Simplified */
         .setup-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
             margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .setup-box {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            border-radius: 16px;
-            border: 1px solid var(--glass-border);
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 5px;
+            align-items: center;
         }
 
         .setup-box label {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
             text-transform: uppercase;
             font-weight: 600;
+            letter-spacing: 1px;
         }
 
         input[type="time"], input[type="number"].inline-input {
             background: transparent;
             color: var(--text-main);
             border: none;
-            border-bottom: 2px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
             padding: 5px 0;
             font-size: 1.2rem;
-            font-weight: bold;
+            font-weight: 500;
             outline: none;
+            text-align: center;
+            width: 120px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="time"]:focus, input[type="number"].inline-input:focus {
+            border-bottom-color: var(--accent);
         }
 
+        /* Predictor Box */
         .predictor-box {
             text-align: center;
-            margin-bottom: 40px;
-            padding: 20px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
-            border-radius: 20px;
+            margin-bottom: 35px;
+        }
+
+        .predictor-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
         }
 
         .sign-off-time {
-            font-size: 4rem;
-            font-weight: 800;
+            font-size: 4.5rem;
+            font-weight: 700;
             color: var(--accent);
-            text-shadow: 0 0 30px var(--accent-glow);
+            text-shadow: 0 0 35px var(--accent-glow);
             letter-spacing: -2px;
             line-height: 1;
         }
 
+        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -155,121 +170,121 @@
         }
 
         .stat-card {
-            background: rgba(0, 0, 0, 0.15);
-            padding: 20px 10px;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px 10px;
+            border-radius: 16px;
             text-align: center;
+            border: 1px solid rgba(255,255,255,0.02);
         }
 
-        .stat-title { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 10px; }
-        .stat-value { font-size: 1.4rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+        .stat-title { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .stat-value { font-size: 1.25rem; font-weight: 600; font-variant-numeric: tabular-nums; }
 
         .text-break { color: var(--break-color); }
         .text-overtime { color: var(--overtime); }
 
-        .controls { display: flex; gap: 15px; margin-bottom: 30px; }
+        /* Controls */
+        .controls { display: flex; gap: 15px; margin-bottom: 15px; }
 
         button.main-btn {
             border: none;
-            padding: 20px;
-            font-size: 1.1rem;
+            padding: 18px;
+            font-size: 1rem;
             font-weight: 600;
-            border-radius: 16px;
+            border-radius: 14px;
             cursor: pointer;
             color: #fff;
             flex-grow: 1;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s ease;
         }
 
-        #actionBtn { background: linear-gradient(135deg, #0ea5e9, #3b82f6); }
-        #actionBtn.on-break { background: linear-gradient(135deg, #f87171, #ef4444); }
-        #resetBtn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-muted); flex-grow: 0; padding: 20px 30px; }
+        #actionBtn { background: linear-gradient(135deg, #0ea5e9, #3b82f6); box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25); }
+        #actionBtn:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(59, 130, 246, 0.35); }
+        #actionBtn.on-break { background: linear-gradient(135deg, #f87171, #ef4444); box-shadow: 0 8px 20px rgba(239, 68, 68, 0.25); }
+        #resetBtn { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); flex-grow: 0; padding: 18px 25px; }
+        #resetBtn:hover { background: rgba(255, 255, 255, 0.1); color: white; }
+
+        /* Progressive Disclosure: Manual Panel */
+        .toggle-manual-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .toggle-manual-btn:hover { color: var(--text-main); }
 
         .manual-panel {
             background: rgba(0, 0, 0, 0.2);
-            padding: 25px;
-            border-radius: 20px;
+            padding: 20px;
+            border-radius: 16px;
             border: 1px solid var(--glass-border);
-            display: flex;
+            display: none; /* Hidden by default */
             flex-direction: column;
             gap: 15px;
+            margin-top: 10px;
         }
+        .manual-panel.open { display: flex; }
         
         .manual-row { display: flex; gap: 12px; align-items: center; }
-        .manual-label { font-size: 0.9rem; color: var(--text-muted); width: 140px; }
+        .manual-label { font-size: 0.85rem; color: var(--text-muted); width: 130px; }
         .time-input-group { display: flex; gap: 8px; flex-grow: 1; }
-        .manual-row input { width: 100%; background: rgba(255,255,255,0.05); color: var(--text-main); border: 1px solid rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; outline: none; text-align: center; }
-        .manual-row button { padding: 10px 18px; font-size: 0.9rem; font-weight: 600; background-color: transparent; border-radius: 10px; cursor: pointer; }
+        .manual-row input { width: 100%; background: rgba(255,255,255,0.03); color: var(--text-main); border: 1px solid rgba(255,255,255,0.1); padding: 8px; border-radius: 8px; outline: none; text-align: center; }
+        .manual-row button { padding: 8px 15px; font-size: 0.85rem; font-weight: 600; background-color: transparent; border-radius: 8px; cursor: pointer; }
         .btn-break { border: 1px solid var(--break-color); color: var(--break-color); }
         .btn-work { border: 1px solid var(--accent); color: var(--accent); }
 
-        .history-item { background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 15px; overflow: hidden; }
-        .history-header { padding: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-        .history-date { font-weight: 600; font-size: 0.95rem; }
-        .history-body { padding: 15px; border-top: 1px solid rgba(255,255,255,0.05); display: none; }
+        /* History Items - Fixed Formatting */
+        .history-item { background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+        .history-header { padding: 12px 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .history-date { font-weight: 500; font-size: 0.9rem; }
+        .history-body { padding: 15px; border-top: 1px solid rgba(255,255,255,0.02); display: none; background: rgba(0,0,0,0.1); }
         .history-item.active .history-body { display: block; }
-        .history-notes { width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); color: var(--text-main); padding: 10px; border-radius: 8px; min-height: 60px; font-size: 0.9rem; outline: none; }
+        
+        /* The Fix for the Squished Text */
+        .history-stats { 
+            display: flex; 
+            gap: 10px; 
+            flex-wrap: wrap;
+            margin-bottom: 12px; 
+            font-size: 0.8rem; 
+        }
+        .history-badge {
+            background: rgba(255,255,255,0.05);
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
 
+        .history-notes { width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); color: var(--text-main); padding: 10px; border-radius: 8px; min-height: 60px; font-size: 0.85rem; outline: none; }
+
+        /* Subdued Data Management */
         .data-mgmt {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 15px;
             display: flex;
-            gap: 10px;
+            justify-content: center;
+            gap: 20px;
         }
         .btn-data {
-            flex-grow: 1; padding: 10px; font-size: 0.8rem; font-weight: 600; border-radius: 8px;
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--text-muted); cursor: pointer; text-transform: uppercase;
+            background: none; border: none; color: var(--text-muted); font-size: 0.75rem;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: color 0.2s;
         }
-        .btn-data:hover { background: rgba(255,255,255,0.1); color: white; }
+        .btn-data:hover { color: var(--text-main); }
 
-        .footer-credit { margin-top: 30px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); text-transform: uppercase; }
+        .footer-credit { margin-top: 30px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.3); text-transform: uppercase; letter-spacing: 1px; }
         .footer-credit span { color: var(--accent); font-weight: 600; }
         
         input[type=number]::-webkit-inner-spin-button, 
         input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-
-        /* Update Modal Styles */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px);
-            display: none; justify-content: center; align-items: center; z-index: 1000;
-        }
-        .modal-content {
-            background: var(--card-bg, #1e293b);
-            border: 1px solid var(--glass-border);
-            padding: 40px; border-radius: 24px; max-width: 500px; width: 90%;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            text-align: center;
-        }
-        .modal-title { font-size: 1.5rem; color: var(--text-main); margin-bottom: 15px; font-weight: bold; }
-        .modal-version { color: var(--accent); font-size: 1rem; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; }
-        .modal-body { color: var(--text-muted); text-align: left; margin-bottom: 30px; line-height: 1.6; font-size: 0.95rem; }
-        .modal-body ul { padding-left: 20px; }
-        .modal-body li { margin-bottom: 10px; }
-        .modal-btn {
-            background: var(--accent); color: #fff; border: none; padding: 12px 30px;
-            font-size: 1rem; font-weight: bold; border-radius: 12px; cursor: pointer;
-            transition: background 0.2s;
-        }
-        .modal-btn:hover { background: #0284c7; }
     </style>
 </head>
 <body>
-
-    <div class="modal-overlay" id="updateModal">
-        <div class="modal-content">
-            <div class="modal-title">WorkTracker Updated</div>
-            <div class="modal-version">Version 1.1</div>
-            <div class="modal-body">
-                <ul>
-                    <li><strong>Shift History:</strong> A new persistent panel tracks your daily work sessions and overtime.</li>
-                    <li><strong>Backup & Restore:</strong> Export your data to prevent accidental loss if your cache is cleared.</li>
-                    <li><strong>Shift Notes:</strong> Add custom context to your historical shifts.</li>
-                </ul>
-            </div>
-            <button class="modal-btn" onclick="closeModal()">Got it</button>
-        </div>
-    </div>
 
     <div class="app-wrapper">
         <div class="glass-panel">
@@ -281,7 +296,7 @@
                     <input type="time" id="startTime" onchange="saveDataAndRender()">
                 </div>
                 <div class="setup-box">
-                    <label>Planned OT (Hours)</label>
+                    <label>Planned OT (Hrs)</label>
                     <input type="number" id="plannedOt" class="inline-input" value="0" min="0" step="0.5" onchange="saveDataAndRender()">
                 </div>
             </div>
@@ -311,7 +326,11 @@
                 <button id="resetBtn" class="main-btn" onclick="resetApp()">Reset</button>
             </div>
 
-            <div class="manual-panel">
+            <button class="toggle-manual-btn" onclick="document.getElementById('manualPanel').classList.toggle('open')">
+                ⚙️ Adjust Time Manually
+            </button>
+
+            <div class="manual-panel" id="manualPanel">
                 <div class="manual-row">
                     <span class="manual-label">Log Missed Break:</span>
                     <div class="time-input-group">
@@ -336,8 +355,8 @@
             <div id="historyContainer"></div>
 
             <div class="data-mgmt">
-                <button class="btn-data" onclick="exportData()">Backup Data</button>
-                <button class="btn-data" onclick="document.getElementById('fileInput').click()">Restore Data</button>
+                <button class="btn-data" onclick="exportData()">↓ Backup JSON</button>
+                <button class="btn-data" onclick="document.getElementById('fileInput').click()">↑ Restore JSON</button>
                 <input type="file" id="fileInput" style="display:none" onchange="importData(event)" accept=".json">
             </div>
         </div>
@@ -346,7 +365,6 @@
     <div class="footer-credit">App made by <span>JeremiaKusuma</span></div>
 
     <script>
-        const APP_VERSION = "1.1";
         const BASE_GOAL = 8 * 3600;
         let accumulatedWork = 0, accumulatedBreak = 0, sessionStart = 0, currentState = 'idle', shiftHistory = [];
         let activeInterval = null;
@@ -360,19 +378,6 @@
         const overtimeDisplay = document.getElementById('overtimeDisplay');
         const actionBtn = document.getElementById('actionBtn');
         const historyContainer = document.getElementById('historyContainer');
-        const updateModal = document.getElementById('updateModal');
-
-        function checkVersion() {
-            const savedVersion = localStorage.getItem('wt_app_version');
-            if (savedVersion !== APP_VERSION) {
-                updateModal.style.display = 'flex';
-                localStorage.setItem('wt_app_version', APP_VERSION);
-            }
-        }
-
-        function closeModal() {
-            updateModal.style.display = 'none';
-        }
 
         function formatDuration(s) {
             const h = Math.floor(s / 3600).toString().padStart(2, '0');
@@ -485,13 +490,23 @@
         }
 
         function renderHistory() {
-            historyContainer.innerHTML = shiftHistory.length ? '' : '<div class="empty-history">No history yet.</div>';
+            historyContainer.innerHTML = shiftHistory.length ? '' : '<div style="text-align:center;color:var(--text-muted);font-size:0.85rem;margin-top:20px;">No history yet.</div>';
             shiftHistory.forEach((s, i) => {
                 const div = document.createElement('div');
                 div.className = 'history-item';
-                div.innerHTML = `<div class="history-header" onclick="this.parentElement.classList.toggle('active')"><span class="history-date">${s.date}</span></div>
-                    <div class="history-body"><div class="history-stats"><span>Work: ${s.work}</span><span>OT: ${s.ot}</span><span>Break: ${s.break}</span></div>
-                    <textarea class="history-notes" onchange="shiftHistory[${i}].notes=this.value;saveState()">${s.notes}</textarea></div>`;
+                div.innerHTML = `
+                    <div class="history-header" onclick="this.parentElement.classList.toggle('active')">
+                        <span class="history-date">${s.date}</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">▼</span>
+                    </div>
+                    <div class="history-body">
+                        <div class="history-stats">
+                            <span class="history-badge">Work: ${s.work}</span>
+                            <span class="history-badge" style="color: var(--overtime);">OT: ${s.ot}</span>
+                            <span class="history-badge" style="color: var(--break-color);">Break: ${s.break}</span>
+                        </div>
+                        <textarea class="history-notes" placeholder="Shift notes..." onchange="shiftHistory[${i}].notes=this.value;saveState()">${s.notes}</textarea>
+                    </div>`;
                 historyContainer.appendChild(div);
             });
         }
@@ -527,7 +542,6 @@
                 const n = new Date(); startTimeInput.value = `${n.getHours().toString().padStart(2, '0')}:${n.getMinutes().toString().padStart(2, '0')}`;
             }
             updateDisplays(); renderHistory();
-            checkVersion();
         }
 
         loadState();
