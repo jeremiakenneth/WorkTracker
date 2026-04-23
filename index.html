@@ -51,6 +51,8 @@
             --glass-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
         }
 
+        /* Forces the scrollbar track to always exist to prevent center-alignment layout shifts */
+        html { overflow-y: scroll; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--base-font); }
 
         body {
@@ -71,13 +73,13 @@
         @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
         .app-wrapper { display: flex; justify-content: center; width: 100%; max-width: 550px; position: relative; z-index: 10; }
-        .glass-panel { position: relative; background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); padding: 35px; border-radius: 24px; box-shadow: var(--glass-shadow); width: 100%; transition: background 0.3s ease, border-color 0.3s ease; }
+        .glass-panel { position: relative; background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border); padding: 40px; border-radius: 24px; box-shadow: var(--glass-shadow); width: 100%; transition: background 0.3s ease, border-color 0.3s ease; }
 
         .branding-header { display: flex; flex-direction: column; align-items: center; margin-bottom: 25px; }
         .app-logo { width: 50px; height: auto; margin-bottom: 10px; border-radius: 8px; display: none; }
         h1 { font-size: 1.5rem; font-weight: 600; text-align: center; letter-spacing: 1px; color: var(--text-main); }
 
-        .tab-nav { display: flex; background: var(--history-bg); border-radius: 12px; padding: 5px; margin-bottom: 30px; border: 1px solid var(--glass-border); }
+        .tab-nav { display: flex; background: var(--history-bg); border-radius: 12px; padding: 5px; margin-bottom: 35px; border: 1px solid var(--glass-border); }
         .tab-btn { flex: 1; background: transparent; border: none; color: var(--text-muted); padding: 10px; font-size: 0.85rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 1px; }
         .tab-btn.active { background: var(--input-bg); color: var(--text-main); box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid var(--glass-border); }
         
@@ -90,41 +92,45 @@
         input, select { background: var(--input-bg); color: var(--text-main); border: 1px solid var(--glass-border); padding: 10px; border-radius: 8px; outline: none; transition: border-color 0.2s; font-family: var(--base-font); }
         input:focus, select:focus { border-color: var(--accent); }
         
-        .setup-grid { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; padding-bottom: 25px; border-bottom: 1px solid var(--glass-border); }
+        .setup-grid { display: flex; justify-content: center; gap: 30px; margin-bottom: 35px; padding-bottom: 25px; border-bottom: 1px solid var(--glass-border); }
         .setup-box { display: flex; flex-direction: column; gap: 5px; align-items: center; }
         .setup-box label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 1px; }
         input[type="time"], input[type="number"].inline-input { background: transparent; border: none; border-bottom: 1px solid var(--glass-border); border-radius: 0; padding: 5px 0; font-size: 1.2rem; font-weight: 500; text-align: center; width: 120px; }
         input[type="time"]:focus, input[type="number"].inline-input:focus { border-bottom-color: var(--accent); }
 
-        .predictor-box { text-align: center; margin-bottom: 35px; }
+        .predictor-box { text-align: center; margin-bottom: 40px; }
         .predictor-label { color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
         .sign-off-time { font-size: 4.5rem; font-weight: 700; color: var(--accent); text-shadow: 0 0 35px var(--accent-glow); letter-spacing: -2px; line-height: 1; }
         body.theme-light .sign-off-time { text-shadow: none; }
 
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 35px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 40px; }
         .stat-card { background: var(--input-bg); padding: 15px 5px; border-radius: 16px; text-align: center; border: 1px solid var(--glass-border); }
         .stat-title { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
         .stat-value { font-size: 1.2rem; font-weight: 600; font-variant-numeric: tabular-nums; }
         .text-break { color: var(--break-color); }
         .text-overtime { color: var(--overtime); }
 
-        .controls-primary { margin-bottom: 10px; width: 100%; }
-        .controls-secondary { display: flex; gap: 10px; margin-bottom: 15px; width: 100%; }
+        /* Reorganized Buttons */
+        .controls-primary { display: flex; gap: 10px; margin-bottom: 15px; width: 100%; }
+        .controls-secondary { margin-bottom: 15px; width: 100%; }
         
-        #actionBtn { width: 100%; padding: 20px; font-size: 1.1rem; border-radius: 16px; border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.2s ease; background: linear-gradient(135deg, #0ea5e9, #3b82f6); color: #fff; box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25); }
+        #actionBtn { flex: 2; padding: 20px; font-size: 1.1rem; border-radius: 16px; border: none; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.2s ease; background: linear-gradient(135deg, #0ea5e9, #3b82f6); color: #fff; box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25); }
         #actionBtn:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(59, 130, 246, 0.35); }
         #actionBtn.on-break { background: linear-gradient(135deg, #f87171, #ef4444); box-shadow: 0 8px 20px rgba(239, 68, 68, 0.25); }
         
-        #endWorkBtn { flex: 1; padding: 14px; font-size: 0.85rem; border-radius: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.2s ease; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.3); color: var(--success); }
+        #endWorkBtn { flex: 1; padding: 20px; font-size: 0.9rem; border-radius: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.2s ease; background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.3); color: var(--success); }
         #endWorkBtn:hover { background: rgba(52, 211, 153, 0.2); }
         
-        #resetBtn { flex: 1; padding: 14px; font-size: 0.85rem; border-radius: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.2s ease; background: var(--input-bg); color: var(--text-muted); border: 1px solid var(--glass-border); }
+        #resetBtn { width: 100%; padding: 14px; font-size: 0.85rem; border-radius: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.2s ease; background: var(--input-bg); color: var(--text-muted); border: 1px solid var(--glass-border); }
         #resetBtn:hover { border-color: var(--text-muted); color: var(--text-main); }
 
-        .toggle-manual-btn { background: none; border: none; color: var(--text-muted); font-size: 0.8rem; width: 100%; text-align: center; padding: 10px; cursor: pointer; transition: color 0.2s; text-transform: uppercase; letter-spacing: 1px; }
+        .toggle-manual-btn { background: none; border: none; color: var(--text-muted); font-size: 0.8rem; width: 100%; text-align: center; padding: 10px; margin-top: 10px; cursor: pointer; transition: color 0.2s; text-transform: uppercase; letter-spacing: 1px; }
         .toggle-manual-btn:hover { color: var(--text-main); }
-        .manual-panel { background: var(--history-bg); padding: 20px; border-radius: 16px; border: 1px solid var(--glass-border); display: none; flex-direction: column; gap: 15px; margin-top: 10px; }
-        .manual-panel.open { display: flex; }
+        
+        /* Smooth Animated Panel */
+        .manual-panel { background: var(--history-bg); border: 1px solid var(--glass-border); border-radius: 16px; margin-top: 10px; display: flex; flex-direction: column; gap: 15px; overflow: hidden; max-height: 0; opacity: 0; padding: 0 20px; transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease; }
+        .manual-panel.open { max-height: 300px; opacity: 1; padding: 20px; }
+        
         .manual-row { display: flex; gap: 10px; align-items: center; }
         .manual-label { font-size: 0.8rem; color: var(--text-muted); width: 120px; }
         .time-input-group { display: flex; gap: 8px; flex-grow: 1; }
@@ -133,12 +139,13 @@
         .btn-break { border: 1px solid var(--break-color); color: var(--break-color); }
         .btn-work { border: 1px solid var(--accent); color: var(--accent); }
 
-        /* History Tab */
+        /* History Tab & Accordions */
         #historyContainer { max-height: 450px; overflow-y: auto; padding-right: 5px; margin-bottom: 20px; }
         #historyContainer::-webkit-scrollbar { width: 5px; }
         #historyContainer::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
         
-        .history-month-header { font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px 0; padding-bottom: 5px; border-bottom: 1px solid var(--glass-border); }
+        .history-month-header { font-size: 0.8rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px 0; padding-bottom: 5px; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; transition: color 0.2s;}
+        .history-month-header:hover { color: var(--text-main); }
         .history-month-header:first-child { margin-top: 0; }
 
         .history-item { background: var(--history-bg); border: 1px solid var(--glass-border); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
@@ -160,13 +167,12 @@
         .btn-pdf-large:hover { background: var(--accent); color: #fff; }
 
         /* Settings Tab */
-        .settings-section { margin-bottom: 30px; }
+        .settings-section { margin-bottom: 35px; }
         .settings-section h3 { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--glass-border); padding-bottom: 8px; margin-bottom: 15px; }
         
         .setting-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .setting-row label { font-size: 0.9rem; font-weight: 500; }
-        .setting-row input[type="number"] { width: 80px; text-align: center; }
-        .setting-row select { width: 150px; }
+        .setting-row select { width: 180px; }
         
         .pro-row { background: var(--history-bg); padding: 15px; border-radius: 12px; border: 1px solid var(--glass-border); flex-wrap: wrap; gap: 10px; }
         .pro-badge { background: linear-gradient(135deg, #f59e0b, #f97316); color: white; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; vertical-align: middle; margin-left: 5px; font-weight: bold; letter-spacing: 1px; }
@@ -205,6 +211,8 @@
         .modal-btn-cancel:hover { border-color: var(--text-muted); }
         .modal-btn-confirm { background: var(--accent); color: white; }
         .modal-btn-confirm:hover { background: #0284c7; }
+        .modal-btn-danger { background: rgba(225, 29, 72, 0.9); color: white; }
+        .modal-btn-danger:hover { background: rgba(225, 29, 72, 1); }
 
         .footer-credit { margin-top: 30px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.3); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .footer-credit span { color: var(--accent); font-weight: 600; }
@@ -217,13 +225,13 @@
 
     <div class="modal-overlay" id="updateModal">
         <div class="modal-box">
-            <div class="modal-title">WorkTracker v2.0</div>
+            <div class="modal-title">WorkTracker v2.1</div>
             <div style="color: var(--accent); font-size: 0.85rem; margin-bottom: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Patch Notes</div>
             <ul style="text-align: left; color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 25px; padding-left: 20px;">
-                <li><strong>Settings Architecture:</strong> A dedicated control panel for your app preferences.</li>
-                <li><strong>Custom Shift Lengths:</strong> Set your base working hours independently of the 8-hour default.</li>
-                <li><strong>Theme Engine:</strong> Swap between Default Gradient, OLED Dark, and Clean Light modes.</li>
-                <li><strong>Data Safety:</strong> Relocated backups and history wipes to prevent accidental clicks.</li>
+                <li><strong>Refined UI:</strong> Better spacing, smooth animations, and a reorganized action button layout.</li>
+                <li><strong>Planned Working Hours:</strong> Base Shift Length is now handled dynamically directly from the Tracker tab.</li>
+                <li><strong>History Folders:</strong> Long history lists are now automatically grouped into collapsible monthly accordions.</li>
+                <li><strong>Instant Snap:</strong> Resetting or ending a shift instantly snaps the clock to the exact current time.</li>
             </ul>
             <div class="modal-actions">
                 <button class="modal-btn modal-btn-confirm" onclick="closeUpdateModal()">Awesome</button>
@@ -239,7 +247,7 @@
             <h3>1. The Core Loop</h3>
             <ul>
                 <li><strong>Auto-Clock:</strong> While idle, the <strong>Clock-In Time</strong> syncs to your system clock. The moment you press Start, that time is locked in for the day.</li>
-                <li><strong>Shift Targets:</strong> Go to the Settings tab to adjust your <strong>Base Shift Length</strong>. Add hours into the <strong>Planned OT</strong> box to push back your projected end time dynamically.</li>
+                <li><strong>Shift Targets:</strong> Adjust your <strong>Planned Working Hours</strong> directly on the main tracker. The system dynamically calculates and pushes back your "Projected End of Shift" time.</li>
                 <li><strong>Shift Completion:</strong> When your Active Work hits your target hours, the app will trigger a system notification and an audio chime.</li>
             </ul>
 
@@ -252,7 +260,7 @@
 
             <h3>3. History & Exports</h3>
             <ul>
-                <li><strong>The Ledger:</strong> Click on any shift in the History tab to open it, view exact metrics, or type specific notes.</li>
+                <li><strong>The Ledger:</strong> Click on any shift in the History tab to open it, view exact metrics, or type specific notes. Older months are auto-collapsed to save space.</li>
                 <li><strong>PDF Export:</strong> Generates a stylized invoice document of your entire history with calculated monthly totals.</li>
                 <li><strong>JSON Backup/Restore (in Settings):</strong> Download a raw database file of your history to transfer computers or safely clear your cache.</li>
             </ul>
@@ -302,8 +310,8 @@
                         <input type="time" id="startTime" onchange="userEditedTime = true; updateDisplays(); saveState();">
                     </div>
                     <div class="setup-box">
-                        <label>Planned OT (Hrs)</label>
-                        <input type="number" id="plannedOt" class="inline-input" value="0" min="0" step="0.5" onchange="updateDisplays(); saveState();">
+                        <label>Planned Work (Hrs)</label>
+                        <input type="number" id="plannedWork" class="inline-input" value="8" min="1" step="0.5" onchange="updateDisplays(); saveState();">
                     </div>
                 </div>
 
@@ -329,10 +337,10 @@
 
                 <div class="controls-primary">
                     <button id="actionBtn" onclick="toggleState()">Start Work</button>
+                    <button id="endWorkBtn" onclick="endWork()">End Work</button>
                 </div>
                 <div class="controls-secondary">
-                    <button id="endWorkBtn" onclick="endWork()">End Work</button>
-                    <button id="resetBtn" onclick="pureReset()">Reset</button>
+                    <button id="resetBtn" onclick="pureReset()">Reset Session</button>
                 </div>
 
                 <button class="toggle-manual-btn" onclick="document.getElementById('manualPanel').classList.toggle('open')">
@@ -361,7 +369,7 @@
 
             <div id="historyTab" class="tab-content">
                 <button class="btn-pdf-large" onclick="triggerPDFExport()">📄 Generate PDF Report</button>
-                <div style="margin-bottom: 20px;"></div>
+                <div style="margin-bottom: 25px;"></div>
                 <div id="historyContainer"></div>
             </div>
 
@@ -369,10 +377,6 @@
                 
                 <div class="settings-section">
                     <h3>Preferences</h3>
-                    <div class="setting-row">
-                        <label>Base Shift Length (Hrs)</label>
-                        <input type="number" id="baseShiftInput" value="8" min="1" max="24" step="0.5" onchange="saveSettings()">
-                    </div>
                     <div class="setting-row">
                         <label>App Theme</label>
                         <select id="themeSelect" onchange="saveSettings()">
@@ -397,13 +401,12 @@
                     <button class="btn-setting" onclick="exportData()">↓ Backup JSON History</button>
                     <button class="btn-setting" onclick="document.getElementById('fileInput').click()">↑ Restore JSON History</button>
                     <input type="file" id="fileInput" style="display:none" onchange="importData(event)" accept=".json">
-                    <button class="btn-setting btn-danger" onclick="triggerNuclearReset()">⚠ Wipe All Data</button>
+                    <button class="btn-setting btn-danger" onclick="triggerSystemWipe()">⚠ Erase All Data</button>
                 </div>
 
                 <div class="settings-section">
                     <h3>About</h3>
                     <button class="btn-setting" onclick="showHelp()">📖 View Documentation</button>
-                    <button class="btn-setting" onclick="window.open('https://github.com/sirkentc', '_blank')">💻 GitHub Profile</button>
                 </div>
 
             </div>
@@ -412,20 +415,19 @@
     </div>
 
     <div class="footer-credit">
-        APP MADE BY <span>SIRKENTC</span>
+        APP MADE BY <span>THE LOBBY CREATIVE</span>
         <img src="footer-logo.png" alt="" class="footer-icon" onerror="this.style.display='none'">
     </div>
 
     <script>
-        const APP_VERSION = "2.0";
-        let baseShiftSec = 8 * 3600;
+        const APP_VERSION = "2.1";
         let accumulatedWork = 0, accumulatedBreak = 0, sessionStart = 0, currentState = 'idle', shiftHistory = [];
         let activeInterval = null, liveClockInterval = null;
         let userEditedTime = false, shiftNotified = false;
         let confirmActionCallback = null;
 
         const startTimeInput = document.getElementById('startTime');
-        const plannedOtInput = document.getElementById('plannedOt');
+        const plannedWorkInput = document.getElementById('plannedWork');
         const signOffDisplay = document.getElementById('signOffDisplay');
         const signOffLabel = document.getElementById('signOffLabel');
         const workTimeDisplay = document.getElementById('workTimeDisplay');
@@ -506,11 +508,18 @@
             }
         }
 
-        function showCustomPopup(title, message, isConfirm, callback, needsInput = false, defaultInput = "") {
+        function showCustomPopup(title, message, isConfirm, callback, needsInput = false, defaultInput = "", isDanger = false) {
             document.getElementById('customModalTitle').textContent = title;
             document.getElementById('customModalMessage').textContent = message;
             document.getElementById('customModalCancel').style.display = isConfirm ? 'inline-block' : 'none';
             
+            const btnConfirm = document.getElementById('customModalConfirm');
+            if(isDanger) {
+                btnConfirm.classList.add('modal-btn-danger');
+            } else {
+                btnConfirm.classList.remove('modal-btn-danger');
+            }
+
             const inputEl = document.getElementById('customModalInput');
             if (needsInput) {
                 inputEl.style.display = 'block';
@@ -593,17 +602,16 @@
                 overtimeDisplay.textContent = "--:--:--";
                 breakTimeDisplay.textContent = "--:--:--";
                 signOffLabel.textContent = "Projected End of Shift";
-                signOffDisplay.textContent = calculateSignOff(0, parseFloat(plannedOtInput.value) || 0);
+                signOffDisplay.textContent = calculateSignOff(0, parseFloat(plannedWorkInput.value) || 8);
                 signOffDisplay.style.color = "var(--accent)";
                 return;
             }
 
             const { w, b } = getCurrentTotals();
-            const plannedOtSec = (parseFloat(plannedOtInput.value) || 0) * 3600;
-            const totalGoalSec = baseShiftSec + plannedOtSec;
+            const totalGoalSec = (parseFloat(plannedWorkInput.value) || 8) * 3600;
 
-            let std = w > baseShiftSec ? baseShiftSec : w;
-            let ot = w > baseShiftSec ? w - baseShiftSec : 0;
+            let std = w > totalGoalSec ? totalGoalSec : w;
+            let ot = w > totalGoalSec ? w - totalGoalSec : 0;
 
             workTimeDisplay.textContent = formatDuration(std);
             overtimeDisplay.textContent = formatDuration(ot);
@@ -617,18 +625,16 @@
                 signOffDisplay.style.color = "var(--overtime)";
             } else {
                 signOffLabel.textContent = "Projected End of Shift";
-                signOffDisplay.textContent = calculateSignOff(b, parseFloat(plannedOtInput.value) || 0);
+                signOffDisplay.textContent = calculateSignOff(b, parseFloat(plannedWorkInput.value) || 8);
                 signOffDisplay.style.color = "var(--accent)";
             }
         }
 
-        function calculateSignOff(breakSec, otHr) {
+        function calculateSignOff(breakSec, plannedWorkHr) {
             if (!startTimeInput.value) return "--:--";
-            const baseShiftHrs = parseFloat(document.getElementById('baseShiftInput').value) || 8;
             const [h, m] = startTimeInput.value.split(':').map(Number);
             
-            // Calculate total minutes to add
-            const totalMins = (baseShiftHrs + otHr) * 60 + Math.floor(breakSec / 60);
+            const totalMins = plannedWorkHr * 60 + Math.floor(breakSec / 60);
             
             let finalH = h + Math.floor(totalMins / 60);
             let finalM = m + (totalMins % 60);
@@ -689,11 +695,12 @@
             
             const timestampId = Date.now();
             const dateStr = new Date(timestampId).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-            
+            const totalGoalSec = (parseFloat(plannedWorkInput.value) || 8) * 3600;
+
             const shift = {
                 id: timestampId, date: dateStr,
-                work: formatDuration(accumulatedWork > baseShiftSec ? baseShiftSec : accumulatedWork),
-                ot: formatDuration(accumulatedWork > baseShiftSec ? accumulatedWork - baseShiftSec : 0),
+                work: formatDuration(accumulatedWork > totalGoalSec ? totalGoalSec : accumulatedWork),
+                ot: formatDuration(accumulatedWork > totalGoalSec ? accumulatedWork - totalGoalSec : 0),
                 break: formatDuration(accumulatedBreak), notes: ""
             };
             
@@ -711,9 +718,11 @@
             accumulatedWork = 0; accumulatedBreak = 0; sessionStart = 0; currentState = 'idle';
             shiftNotified = false;
             actionBtn.textContent = "Start Work"; actionBtn.classList.remove('on-break');
+            
             userEditedTime = false; 
+            updateTimeToNow(); // Instantly snap clock to current time
             manageLiveClock(); 
-            plannedOtInput.value = "0"; 
+            
             saveState(); updateDisplays(); renderHistory();
         }
 
@@ -722,16 +731,16 @@
                 shiftHistory = shiftHistory.filter(s => s.id !== id);
                 saveState();
                 renderHistory();
-            });
+            }, false, "", true);
         }
 
-        function triggerNuclearReset() {
-            showCustomPopup("⚠ NUCLEAR RESET ⚠", "Are you absolutely sure? This will permanently delete ALL shift history and app settings. This cannot be undone.", true, () => {
+        function triggerSystemWipe() {
+            showCustomPopup("⚠ Confirm System Wipe ⚠", "Are you absolutely sure? This will permanently erase ALL shift history and app settings. This cannot be undone.", true, () => {
                 localStorage.removeItem('workTrackerData');
                 localStorage.removeItem('wt_settings');
                 localStorage.removeItem('wt_tutorial_seen');
                 location.reload();
-            });
+            }, false, "", true);
         }
 
         function renderHistory() {
@@ -748,11 +757,24 @@
                 groupedShifts[monthYear].push(s);
             });
 
+            let isFirstMonth = true;
+
             for (const [month, shifts] of Object.entries(groupedShifts)) {
+                
+                const monthGroup = document.createElement('div');
+                
                 const monthHeader = document.createElement('div');
                 monthHeader.className = 'history-month-header';
-                monthHeader.textContent = month;
-                historyContainer.appendChild(monthHeader);
+                monthHeader.innerHTML = `<span>${month}</span> <span style="font-size:0.6rem;">${isFirstMonth ? '▼' : '▶'}</span>`;
+                
+                const shiftsWrapper = document.createElement('div');
+                shiftsWrapper.style.display = isFirstMonth ? 'block' : 'none';
+
+                monthHeader.onclick = () => {
+                    const isHidden = shiftsWrapper.style.display === 'none';
+                    shiftsWrapper.style.display = isHidden ? 'block' : 'none';
+                    monthHeader.innerHTML = `<span>${month}</span> <span style="font-size:0.6rem;">${isHidden ? '▼' : '▶'}</span>`;
+                };
 
                 shifts.forEach(s => {
                     const idx = shiftHistory.findIndex(sh => sh.id === s.id);
@@ -774,8 +796,14 @@
                             <textarea class="history-notes" placeholder="Shift notes..." onchange="shiftHistory[${idx}].notes=this.value;saveState()">${s.notes}</textarea>
                             <button class="btn-delete-history" onclick="deleteHistoryItem(${s.id})">Delete Entry</button>
                         </div>`;
-                    historyContainer.appendChild(div);
+                    shiftsWrapper.appendChild(div);
                 });
+
+                monthGroup.appendChild(monthHeader);
+                monthGroup.appendChild(shiftsWrapper);
+                historyContainer.appendChild(monthGroup);
+
+                isFirstMonth = false;
             }
         }
 
@@ -786,9 +814,9 @@
             }
             showCustomPopup("SirKentC asks...", "Enter a title for your PDF Report:", true, (customTitle) => {
                 if (customTitle !== null) {
-                    generatePDF(customTitle.trim() === "" ? "Official Timesheet Report" : customTitle);
+                    generatePDF(customTitle.trim() === "" ? "The Lobby Creative Timesheet" : customTitle);
                 }
-            }, true, "Official Timesheet Report");
+            }, true, "The Lobby Creative Timesheet");
         }
 
         function generatePDF(documentTitle) {
@@ -859,7 +887,7 @@
 
             htmlContent += `
                 <div style="margin-top: 40px; border-top: 1px solid #eee; padding-top: 15px; text-align: center; font-size: 12px; color: #888;">
-                    Generated by WorkTracker &nbsp;|&nbsp; App by SirKentC
+                    Generated by WorkTracker &nbsp;|&nbsp; App by The Lobby Creative
                 </div>
             `;
 
@@ -867,7 +895,7 @@
 
             const opt = {
                 margin:       0.5,
-                filename:     `Timesheet_SirKentC_${new Date().toISOString().slice(0,10)}.pdf`,
+                filename:     `Timesheet_TheLobbyCreative_${new Date().toISOString().slice(0,10)}.pdf`,
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2 },
                 jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
@@ -889,26 +917,14 @@
         }
 
         function saveSettings() {
-            const shiftHrs = parseFloat(document.getElementById('baseShiftInput').value) || 8;
-            baseShiftSec = shiftHrs * 3600;
-            
             const selectedTheme = document.getElementById('themeSelect').value;
             document.body.className = selectedTheme;
-
-            localStorage.setItem('wt_settings', JSON.stringify({
-                baseShiftHrs: shiftHrs,
-                theme: selectedTheme
-            }));
-            updateDisplays();
+            localStorage.setItem('wt_settings', JSON.stringify({ theme: selectedTheme }));
         }
 
         function loadSettings() {
             const settings = JSON.parse(localStorage.getItem('wt_settings'));
             if (settings) {
-                const shiftHrs = settings.baseShiftHrs || 8;
-                document.getElementById('baseShiftInput').value = shiftHrs;
-                baseShiftSec = shiftHrs * 3600;
-
                 const theme = settings.theme || 'theme-default';
                 document.getElementById('themeSelect').value = theme;
                 document.body.className = theme;
@@ -920,7 +936,7 @@
         function saveState() { 
             localStorage.setItem('workTrackerData', JSON.stringify({ 
                 accumulatedWork, accumulatedBreak, sessionStart, currentState, 
-                clockInTime: startTimeInput.value, plannedOt: plannedOtInput.value, 
+                clockInTime: startTimeInput.value, plannedWork: plannedWorkInput.value, 
                 history: shiftHistory, userEditedTime, shiftNotified
             })); 
         }
@@ -930,7 +946,8 @@
             if (d) {
                 accumulatedWork = d.accumulatedWork || 0; accumulatedBreak = d.accumulatedBreak || 0; 
                 sessionStart = d.sessionStart || 0; currentState = d.currentState || 'idle';
-                plannedOtInput.value = d.plannedOt || 0; shiftHistory = d.history || [];
+                plannedWorkInput.value = d.plannedWork !== undefined ? d.plannedWork : 8; 
+                shiftHistory = d.history || [];
                 userEditedTime = d.userEditedTime || false;
                 shiftNotified = d.shiftNotified || false;
                 
